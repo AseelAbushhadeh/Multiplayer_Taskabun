@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Player/Player.gd" type="Script" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 74.0
+height = 156.0
+
+[node name="Player" type="KinematicBody2D" groups=["Net", "Player"]]
+script = ExtResource( 2 )
+
+[node name="oval" type="TextureRect" parent="."]
+margin_left = -197.0
+margin_top = 90.0
+margin_right = 199.0
+margin_bottom = 340.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 5, 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Network_tick_rate" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true
+
+[node name="Reload_timer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[node name="Hit_timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="Network_tick_rate" to="." method="_on_Network_tick_rate_timeout"]
+[connection signal="timeout" from="Reload_timer" to="." method="_on_Reload_timer_timeout"]
+[connection signal="timeout" from="Hit_timer" to="." method="_on_Hit_timer_timeout"]

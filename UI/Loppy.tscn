@@ -1,0 +1,303 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://UI/Loppy.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/FFFFORWA.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Assets/PopUp/Popup.tscn" type="PackedScene" id=3]
+[ext_resource path="res://UI/Charecters.gd" type="Script" id=4]
+[ext_resource path="res://Assets/background.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Popup2.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Triangle.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Triangle Mask.png" type="BitMap" id=8]
+[ext_resource path="res://Assets/glowing square.png" type="Texture" id=9]
+[ext_resource path="res://Assets/redOval.png" type="Texture" id=10]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 30
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 30
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 40
+font_data = ExtResource( 2 )
+
+[node name="Loppy" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Multiplayer_configure" type="Control" parent="."]
+margin_right = 1918.0
+margin_bottom = 434.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Multiplayer_configure"]
+visible = false
+margin_right = 1924.0
+margin_bottom = 1082.0
+texture = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="Multiplayer_configure"]
+visible = false
+margin_left = -71.0
+margin_top = -154.0
+margin_right = 1991.0
+margin_bottom = 1256.0
+texture = ExtResource( 9 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Charecters" type="ItemList" parent="Multiplayer_configure"]
+margin_left = 478.0
+margin_top = 122.0
+margin_right = 1372.0
+margin_bottom = 362.0
+allow_reselect = true
+max_columns = 4
+same_column_width = true
+fixed_icon_size = Vector2( 200, 200 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerName" type="Label" parent="Multiplayer_configure"]
+margin_left = 486.0
+margin_top = 406.0
+margin_right = 736.0
+margin_bottom = 458.0
+custom_fonts/font = SubResource( 1 )
+text = "Player Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Username_text_edit" type="LineEdit" parent="Multiplayer_configure"]
+margin_left = 752.0
+margin_top = 394.0
+margin_right = 1368.0
+margin_bottom = 459.0
+custom_fonts/font = SubResource( 2 )
+align = 1
+max_length = 15
+placeholder_text = "enter name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UI" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Start_game" type="Button" parent="UI"]
+margin_left = 795.0
+margin_top = 205.0
+margin_right = 1064.0
+margin_bottom = 301.0
+mouse_default_cursor_shape = 2
+custom_fonts/font = SubResource( 3 )
+text = "Start game"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Device_ip_address" type="Label" parent="UI"]
+margin_left = 628.0
+margin_top = 996.0
+margin_right = 1202.0
+margin_bottom = 1106.0
+custom_fonts/font = SubResource( 1 )
+text = "00.00.00.00"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeaveButton" type="TextureButton" parent="UI"]
+margin_left = 18.0
+margin_top = 836.0
+margin_right = 138.0
+margin_bottom = 982.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 7 )
+texture_click_mask = ExtResource( 8 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Leave" type="Label" parent="UI"]
+margin_left = 15.0
+margin_top = 967.0
+margin_right = 153.0
+margin_bottom = 1077.0
+custom_fonts/font = SubResource( 1 )
+text = "Leave"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spawn_locations" type="Node" parent="."]
+
+[node name="oval" type="TextureRect" parent="Spawn_locations"]
+margin_left = 190.0
+margin_top = 730.0
+margin_right = 586.0
+margin_bottom = 992.0
+texture = ExtResource( 10 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ready" type="Button" parent="Spawn_locations"]
+margin_left = 1406.0
+margin_top = 850.0
+margin_right = 1603.0
+margin_bottom = 946.0
+mouse_default_cursor_shape = 2
+custom_fonts/font = SubResource( 3 )
+text = "Ready"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MasterReady" type="Button" parent="Spawn_locations"]
+margin_left = 296.0
+margin_top = 850.0
+margin_right = 493.0
+margin_bottom = 946.0
+mouse_default_cursor_shape = 2
+custom_fonts/font = SubResource( 3 )
+text = "Ready"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite1" type="TextureRect" parent="Spawn_locations"]
+margin_left = 236.0
+margin_top = 496.0
+margin_right = 536.0
+margin_bottom = 796.0
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1" type="Position2D" parent="Spawn_locations"]
+position = Vector2( 390, 800 )
+
+[node name="Sprite2" type="TextureRect" parent="Spawn_locations"]
+margin_left = 578.0
+margin_top = 494.0
+margin_right = 878.0
+margin_bottom = 794.0
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="2" type="Position2D" parent="Spawn_locations"]
+position = Vector2( 728, 800 )
+
+[node name="Sprite3" type="TextureRect" parent="Spawn_locations"]
+margin_left = 967.0
+margin_top = 494.0
+margin_right = 1267.0
+margin_bottom = 794.0
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="3" type="Position2D" parent="Spawn_locations"]
+position = Vector2( 1118, 800 )
+
+[node name="Sprite4" type="TextureRect" parent="Spawn_locations"]
+margin_left = 1354.0
+margin_top = 492.0
+margin_right = 1654.0
+margin_bottom = 792.0
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="4" type="Position2D" parent="Spawn_locations"]
+position = Vector2( 1500, 800 )
+
+[node name="Popup" parent="." instance=ExtResource( 3 )]
+
+[node name="Popup2" type="Popup" parent="."]
+anchor_left = 0.0177083
+anchor_top = -0.00185185
+anchor_right = 1.01771
+anchor_bottom = 0.998148
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="TextureRect" type="TextureRect" parent="Popup2"]
+margin_left = 460.0
+margin_top = 296.0
+margin_right = 1276.0
+margin_bottom = 764.0
+texture = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Message" type="Label" parent="Popup2"]
+margin_left = 678.0
+margin_top = 460.0
+margin_right = 1119.0
+margin_bottom = 631.0
+custom_colors/font_color = Color( 0.12549, 0.113725, 0.113725, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "This charecter is taken, please try another one."
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="item_selected" from="Multiplayer_configure/Charecters" to="." method="_on_Charecters_item_selected"]
+[connection signal="pressed" from="UI/Start_game" to="." method="_on_Start_game_pressed"]
+[connection signal="pressed" from="UI/LeaveButton" to="." method="_on_LeaveButton_pressed"]
+[connection signal="pressed" from="Spawn_locations/Ready" to="." method="_on_Ready_pressed"]
+[connection signal="pressed" from="Spawn_locations/MasterReady" to="." method="_on_MasterReady_pressed"]
+[connection signal="pressed" from="Popup/Popup_ok" to="." method="_on_Popup_ok_pressed"]
+
+[editable path="Popup"]
