@@ -6,7 +6,7 @@ var current_spawn_location_instance_number = 1
 var player_char=-1
 var current_player_for_spawn_location_number = null
 var ovalLoc=190	
-var my_Id=1
+var my_Id=-1
 
 onready var multiplayer_config_ui = $Multiplayer_configure
 onready var username_text_edit = $Multiplayer_configure/Username_text_edit
@@ -29,15 +29,6 @@ func _ready() -> void:
 		
 		current_spawn_location_instance_number = 1
 			
-		
-		for player in Persistent_nodes.get_children():
-			if player.is_in_group("Player"):
-				for spawn_location in $Spawn_locations.get_children():
-					if int(spawn_location.name) == current_spawn_location_instance_number and current_player_for_spawn_location_number != player:
-						player.rpc("update_position", spawn_location.global_position)
-						player.rpc("enable")
-						current_spawn_location_instance_number += 1
-						current_player_for_spawn_location_number = player
 					
 						
 	if get_tree().network_peer != null:
@@ -52,30 +43,36 @@ func _ready() -> void:
 			
 			
 
-sync func update_my_location():
-	var c=1	
-	for player in Persistent_nodes.get_children():
-		if player.is_in_group("Player"):
-			var location=get_node("Spawn_locations/" + str(c)).global_position
-			location.y-=150
-			player.rpc("update_position", location)	
-			c+=1		
 
 
 
 func _player_connected(id) -> void:
 	print("Player " + str(id) + " has connected")		
 	instance_player(id)
-	
+
+
 
 
 func _player_disconnected(id) -> void:
-	#print("Player " + str(id) + " has disconnected")
+	rpc("remove_player",id)
+
+		
+sync func remove_player(id):
 	if Persistent_nodes.has_node(str(id)):
-		Persistent_nodes.rpc("update_number_of_players",false)
 		Persistent_nodes.get_node(str(id)).username_text_instance.queue_free()
-		Persistent_nodes.get_node(str(id)).queue_free()
-		rpc("update_my_location")
+		Persistent_nodes.get_node(str(id)).queue_free()	
+		
+	yield(get_tree().create_timer(.7),"timeout")	
+	var c=1	
+	for player in Persistent_nodes.get_children():
+		if player.is_in_group("Player"):
+			var location=get_node("Spawn_locations/" + str(c)).global_position
+			location.y-=150
+			player.rpc("update_position", location)	
+			c+=1
+	Network.No_of_current_players=c-1
+			
+		
 		
 
 func _on_MasterReady_pressed():
@@ -165,11 +162,15 @@ func instance_player(id) -> void:
 	var s="res://Assets/players/body"+str(player_char)+".png"
 	player_instance.mychar=s
 	current_spawn_location_instance_number += 1
-	Persistent_nodes.rpc("update_number_of_players",true)
+	if get_tree().network_peer != null:
+			if get_tree().is_network_server():
+				Persistent_nodes.rpc("update_number_of_players",true)
+	
 
 func _on_Start_game_pressed():
 	Network.allow_join=false
 	rpc("switch_to_game")
+
 
 sync func switch_to_game() -> void:
 	for child in Persistent_nodes.get_children():
@@ -177,6 +178,8 @@ sync func switch_to_game() -> void:
 			child.update_shoot_mode(true)
 			child.set_myOval("")
 	print("moving to game")
+	Persistent_nodes.get_node("background").queue_free()
+	Persistent_nodes.get_node("TextureRect").queue_free()
 	get_tree().change_scene("res://Game/Game.tscn")
 
 
@@ -196,23 +199,7 @@ onready var sprite3=$Spawn_locations/Sprite3
 onready var sprite4=$Spawn_locations/Sprite4
 
 
-"""
-func _process(delta):
-	var p=0
-	var v=0
-	if get_tree().network_peer != null:
-		if get_tree().is_network_server():
-			for child in Persistent_nodes.get_children():
-				if child.is_in_group("Player"):
-					p+=1
-				if child.is_in_group("oval"):
-					v+=1
-		while v>p:
-			Persistent_nodes.hide_green_oval(v)
-			v-=1
-"""		
 	
-					
 			
 			
 
@@ -239,12 +226,14 @@ func _on_LeaveButton_pressed():
 		if get_tree().is_network_server():
 			rpc("leave_game")
 		else:
-			_player_disconnected(my_Id)
-			Network.No_of_current_players=0
-			Network._server_disconnected()
-			Network.reset_network_connection()
-			get_tree().change_scene("res://UI/Main.tscn")		
+			if my_Id==-1:
+				get_tree().change_scene("res://UI/Main.tscn")
+			else:	
+				rpc("remove_player",my_Id)
+				get_tree().change_scene("res://UI/Main.tscn")		
 
+
+		
 
 
 sync func leave_game() -> void:

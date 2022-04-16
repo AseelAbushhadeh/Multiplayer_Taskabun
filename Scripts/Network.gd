@@ -3,7 +3,7 @@ extends Node
 const DEFAULT_PORT = 28960
 const MAX_CLIENTS = 6
 var No_of_players=2
-var No_of_current_players=0
+var No_of_current_players=1
 var theme ="Park"
 
 var server = null
