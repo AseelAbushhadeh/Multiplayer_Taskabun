@@ -5,8 +5,10 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
-
-
-func _on_Button_pressed():
-	
-	get_tree().change_scene("res://UI/Main.tscn")
+onready var Tile=preload("res://Game/Tile.tscn")
+func _ready():
+	var c=100
+	for x in range(100):
+		var t=Tile.instance()
+		t.set_number(100-x)
+		$GridContainer.add_child(t)
