@@ -122,7 +122,6 @@ func _connected_to_server() -> void:
 	for child in Persistent_nodes.get_children():
 		if child.is_in_group("Player"):
 			var x=child.get_mychar()
-			print("x= ",x)
 			if x=="res://Assets/players/body1.png":
 				chars_list.set_item_disabled(0,true)
 			elif x=="res://Assets/players/body2.png":
@@ -230,6 +229,9 @@ func _on_LeaveButton_pressed():
 				get_tree().change_scene("res://UI/Main.tscn")
 			else:	
 				rpc("remove_player",my_Id)
+				for child in Persistent_nodes.get_children():
+					if child.is_in_group("Net"):
+						child.queue_free()
 				get_tree().change_scene("res://UI/Main.tscn")		
 
 
@@ -241,5 +243,8 @@ sync func leave_game() -> void:
 	yield(get_tree().create_timer(.5),"timeout")
 	Network._server_disconnected()
 	Network.reset_network_connection()
+	for child in Persistent_nodes.get_children():
+					if child.is_in_group("Net"):
+						child.queue_free()
 	get_tree().change_scene("res://UI/Main.tscn")	
 			
