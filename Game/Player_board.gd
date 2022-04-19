@@ -1,17 +1,18 @@
-extends Control
+extends Node2D
 
 
 func set_image(x):
-	$TextureRect.texture=load(x)
+	$Control/TextureRect.texture=load(x)
 	
 func set_name(x):
-	$name.text=x
+	$Control/name.text=x
 	
 func set_score(x):
-	$score.text=str(x)	
-	
+	$Control/score.text=str(x)	
+
 func set_color(x):
-	$ColorRect.color=x	
+	$Control/ColorRect.color=x	
+
 
 
 # Called when the node enters the scene tree for the first time.

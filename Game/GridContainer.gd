@@ -1,13 +1,14 @@
 extends GridContainer
 
-
+var colors=["#c83838","#30bbff","#e5d813"]
 
 onready var player_board=preload("res://Game/Player_board.tscn")
 # Called when the node enters the scene tree for the first time.
 var players=[]
 var scores=[]
 func _ready():
-	yield(get_tree().create_timer(.5),"timeout")
+	var c=0
+	yield(get_tree().create_timer(.2),"timeout")
 	for child in Persistent_nodes.get_children():
 		if child.is_in_group("Player"):
 			players.append(child)
@@ -20,8 +21,10 @@ func _ready():
 			else:	
 				p.set_name(child.username_get())
 			p.set_score(child.get_hp())
+			#p.set_color(colors[c])
 			add_child(p)
 			scores.append(p)
+			c+=1
 			
 			
 func _process(delta):
