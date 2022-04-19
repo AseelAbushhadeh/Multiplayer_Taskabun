@@ -1,7 +1,12 @@
 extends KinematicBody2D
 
 const speed = 400
+var right=true setget set_direction,get_direction
 
+func set_direction(x):
+	right=x
+func get_direction():
+	return right
 
 var hp = 1 setget set_hp,get_hp
 var mychar="" setget set_mychar,get_mychar
@@ -9,7 +14,7 @@ var velocity = Vector2(0, 0)
 var can_shoot = true
 var is_reloading = false
 var myOval="" setget set_myOval
-
+#var location=Vector2(0,0) setget set_location
 
 var username_text = load("res://Player/Username_text.tscn")
 var username setget username_set,username_get
@@ -195,7 +200,8 @@ func _on_Network_tick_rate_timeout():
 			rset_unreliable("puppet_velocity", velocity)
 			#rset_unreliable("puppet_rotation", rotation)
 			
-			
+func get_position():
+	return global_position			
 
 sync func update_position(pos):
 	global_position = pos

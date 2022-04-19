@@ -172,10 +172,18 @@ func _on_Start_game_pressed():
 
 
 sync func switch_to_game() -> void:
+	var xinc=0
+	var yinc=0
 	for child in Persistent_nodes.get_children():
 		if child.is_in_group("Player"):
 			child.update_shoot_mode(true)
 			child.set_myOval("")
+			child.rpc("update_position", Vector2(100+xinc,860+yinc))	
+			xinc+=100
+			if xinc==200:
+				xinc=70
+				yinc=100
+					
 	print("moving to game")
 	Persistent_nodes.get_node("background").queue_free()
 	Persistent_nodes.get_node("TextureRect").queue_free()
