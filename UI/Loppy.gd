@@ -179,9 +179,10 @@ sync func switch_to_game() -> void:
 			child.update_shoot_mode(true)
 			child.set_myOval("")
 			child.rpc("update_position", Vector2(100+xinc,860+yinc))	
+			child.set_init_pos(100+xinc)
 			xinc+=100
 			if xinc==200:
-				xinc=70
+				xinc=150
 				yinc=100
 					
 	print("moving to game")

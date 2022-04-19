@@ -2,6 +2,13 @@ extends KinematicBody2D
 
 const speed = 400
 var right=true setget set_direction,get_direction
+var initial_pos=0 setget set_init_pos,get_init_pos
+
+func set_init_pos(x):
+	initial_pos=x
+func get_init_pos():
+	return initial_pos
+
 
 func set_direction(x):
 	right=x
