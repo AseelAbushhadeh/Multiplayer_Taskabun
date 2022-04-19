@@ -20,7 +20,7 @@ puppet var puppet_hp = 100 setget puppet_hp_set
 puppet var puppet_char = "" setget puppet_char_set
 puppet var puppet_position = Vector2(0, 0) setget puppet_position_set
 puppet var puppet_velocity = Vector2()
-puppet var puppet_rotation = 0
+#puppet var puppet_rotation = 0
 puppet var puppet_username = "" setget puppet_username_set
 
 
@@ -67,10 +67,10 @@ func _process(delta: float) -> void:
 			
 			move_and_slide(velocity * speed)
 			
-			look_at(get_global_mouse_position())
+			#look_at(get_global_mouse_position())
 			
 		else:
-			rotation = lerp_angle(rotation, puppet_rotation, delta * 8)
+			#rotation = lerp_angle(rotation, puppet_rotation, delta * 8)
 			#tween not active measn the player is not moving because we are not receiving a pakeet(lag)
 			#we need to predict the player next position pased on the last known speed ,untill we recieve a packet to update position
 			if not tween.is_active():
@@ -137,11 +137,17 @@ func set_mychar(new_value):
 			
 func get_mychar():
 	return mychar	
+	
 func username_get():
-	return username		
+	return puppet_username	
 	
 func get_hp():
 	return hp	
+
+func get_my_name():
+	return username
+	
+
 	
 		
 func puppet_hp_set(new_value):
@@ -187,7 +193,7 @@ func _on_Network_tick_rate_timeout():
 		if is_network_master():
 			rset_unreliable("puppet_position", global_position)
 			rset_unreliable("puppet_velocity", velocity)
-			rset_unreliable("puppet_rotation", rotation)
+			#rset_unreliable("puppet_rotation", rotation)
 			
 			
 

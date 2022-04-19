@@ -7,15 +7,18 @@ onready var player_board=preload("res://Game/Player_board.tscn")
 var players=[]
 var scores=[]
 func _ready():
-	
+	yield(get_tree().create_timer(.5),"timeout")
 	for child in Persistent_nodes.get_children():
 		if child.is_in_group("Player"):
 			players.append(child)
 			var p=player_board.instance()
 			var charecter=child.get_mychar()
 			charecter="res://Assets/players/head"+charecter[25]+".png"
-			p.set_image(charecter)
-			p.set_name(child.username_get())
+			p.set_image(charecter)			
+			if Global.player_master==child:
+				p.set_name(Global.player_master.get_my_name())
+			else:	
+				p.set_name(child.username_get())
 			p.set_score(child.get_hp())
 			add_child(p)
 			scores.append(p)
