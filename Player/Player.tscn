@@ -4,7 +4,7 @@
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 74.0
-height = 156.0
+height = 56.0
 
 [node name="Player" type="KinematicBody2D" groups=["Net", "Player"]]
 collision_layer = 2
@@ -24,6 +24,7 @@ __meta__ = {
 scale = Vector2( 5, 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 74 )
 shape = SubResource( 1 )
 
 [node name="Tween" type="Tween" parent="."]

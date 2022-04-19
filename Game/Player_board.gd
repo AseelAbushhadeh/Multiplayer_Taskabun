@@ -1,8 +1,18 @@
 extends Control
 
 
-func set_number(x):
-	$Label.text=str(x)
+func set_image(x):
+	$TextureRect.texture=load(x)
+	
+func set_name(x):
+	$name.text=x
+	
+func set_score(x):
+	$score.text=str(x)	
+	
+func set_color(x):
+	$ColorRect.color=x	
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -12,8 +22,3 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-
-
-func _on_Area2D_body_entered(body):
-	body.set_hp(int($Label.text))
-	

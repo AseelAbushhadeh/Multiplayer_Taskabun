@@ -3,7 +3,7 @@ extends KinematicBody2D
 const speed = 400
 
 
-var hp = 100 setget set_hp
+var hp = 1 setget set_hp,get_hp
 var mychar="" setget set_mychar,get_mychar
 var velocity = Vector2(0, 0)
 var can_shoot = true
@@ -12,7 +12,7 @@ var myOval="" setget set_myOval
 
 
 var username_text = load("res://Player/Username_text.tscn")
-var username setget username_set
+var username setget username_set,username_get
 var username_text_instance = null
 
 puppet var puppet_myOval="" setget puppet_myOval_set
@@ -132,12 +132,20 @@ func set_mychar(new_value):
 		if is_network_master():
 			$Sprite.texture=load(mychar)
 			rset("puppet_char", mychar)
+	
+	
 			
 func get_mychar():
 	return mychar	
-			
+func username_get():
+	return username		
+	
+func get_hp():
+	return hp	
+	
+		
 func puppet_hp_set(new_value):
-	puppet_hp = new_value
+	puppet_hp = new_value	
 	
 	if get_tree().has_network_peer():
 		if not is_network_master():
