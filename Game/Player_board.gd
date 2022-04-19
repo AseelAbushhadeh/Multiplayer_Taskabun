@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 
 func set_image(x):

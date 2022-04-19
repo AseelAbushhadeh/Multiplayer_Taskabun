@@ -1,6 +1,6 @@
 extends GridContainer
 
-var colors=["#c83838","#30bbff","#e5d813"]
+var colors=["#c83838","#30bbff","#e5d813","#964afb"]
 
 onready var player_board=preload("res://Game/Player_board.tscn")
 # Called when the node enters the scene tree for the first time.
@@ -21,7 +21,7 @@ func _ready():
 			else:	
 				p.set_name(child.username_get())
 			p.set_score(child.get_hp())
-			#p.set_color(colors[c])
+			p.set_color(colors[c])
 			add_child(p)
 			scores.append(p)
 			c+=1

@@ -50,7 +50,7 @@ __meta__ = {
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 943, 527 )
 current = true
-zoom = Vector2( 1.6, 1.6 )
+zoom = Vector2( 1.5, 1.5 )
 limit_left = -1000000
 limit_top = -1000000
 limit_right = 1000000
@@ -58,7 +58,7 @@ limit_bottom = 1000000
 script = ExtResource( 2 )
 
 [node name="MovingArrows" parent="Camera2D" instance=ExtResource( 3 )]
-position = Vector2( 1086, -781 )
+position = Vector2( 956, -704 )
 
 [node name="score-board" type="Node2D" parent="Camera2D"]
 z_index = 3
@@ -69,10 +69,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -1537.0
-margin_top = -863.0
-margin_right = -1137.0
-margin_bottom = -463.0
+margin_left = -1438.0
+margin_top = -807.0
+margin_right = -1038.0
+margin_bottom = -407.0
 custom_constants/vseparation = 400
 custom_constants/hseparation = 400
 script = ExtResource( 5 )
