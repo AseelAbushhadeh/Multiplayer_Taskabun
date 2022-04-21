@@ -178,12 +178,12 @@ sync func switch_to_game() -> void:
 		if child.is_in_group("Player"):
 			child.update_shoot_mode(true)
 			child.set_myOval("")
-			child.rpc("update_position", Vector2(100+xinc,860+yinc))	
+			child.rpc("update_position", Vector2(100+xinc,650+yinc))	
 			child.set_init_pos(100+xinc)
 			xinc+=100
 			if xinc==200:
 				xinc=150
-				yinc=100
+				yinc=300
 					
 	print("moving to game")
 	Persistent_nodes.get_node("background").queue_free()
