@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Game/Game.gd" type="Script" id=1]
 [ext_resource path="res://Game/Camera2D.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Assets/World/DirtTileset.png" type="Texture" id=4]
 [ext_resource path="res://Game/GridContainer.gd" type="Script" id=5]
 [ext_resource path="res://Game/dice.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Game/TilesGrid.gd" type="Script" id=7]
 
 [sub_resource type="TileSet" id=2]
 0/name = "DirtTileset.png 0"
@@ -36,13 +37,14 @@
 z_index = -3
 script = ExtResource( 1 )
 
-[node name="GridContainer" type="GridContainer" parent="."]
+[node name="TilesGrid" type="GridContainer" parent="."]
 margin_top = -2912.0
 margin_right = 4000.0
 margin_bottom = 1088.0
 custom_constants/vseparation = 400
 custom_constants/hseparation = 400
 columns = 10
+script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -51,7 +53,7 @@ __meta__ = {
 position = Vector2( 943, 527 )
 current = true
 zoom = Vector2( 1.6, 1.6 )
-limit_left = -575
+limit_left = -410
 limit_top = -2920
 limit_right = 4000
 limit_bottom = 1080
@@ -106,3 +108,6 @@ margin_left = 2616.92
 margin_top = 1153.85
 margin_right = 2916.92
 margin_bottom = 1353.85
+
+[connection signal="tasks_placed" from="TilesGrid" to="CanvasLayer/dice" method="_on_TilesGrid_tasks_placed"]
+[connection signal="dice_rolled" from="CanvasLayer/dice" to="TilesGrid" method="_on_dice_dice_rolled"]

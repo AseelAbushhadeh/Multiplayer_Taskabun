@@ -188,7 +188,9 @@ sync func switch_to_game() -> void:
 	print("moving to game")
 	Persistent_nodes.get_node("background").queue_free()
 	Persistent_nodes.get_node("TextureRect").queue_free()
-	get_tree().change_scene("res://Game/Game.tscn")
+	#get_tree().change_scene("res://Game/Game.tscn")
+	queue_free()
+	Global.instance_node(load("res://Game/Game.tscn"),Persistent_nodes)
 
 
 

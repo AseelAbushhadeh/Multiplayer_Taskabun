@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 const speed = 400
 var right=true setget set_direction,get_direction
+puppet var puppet_sprite_direction=false setget set_sprie_direction,get_sprie_direction
 var initial_pos=0 setget set_init_pos,get_init_pos
 
 func set_init_pos(x):
@@ -9,10 +10,27 @@ func set_init_pos(x):
 func get_init_pos():
 	return initial_pos
 
+func get_sprie_direction():
+	return puppet_sprite_direction	
+	
+func set_sprie_direction(x):
+	puppet_sprite_direction=x
+	if get_tree().has_network_peer():
+		if not is_network_master():
+			$Sprite.flip_h=not x
+			right=x
 
 func set_direction(x):
 	right=x
+	if get_tree().has_network_peer():
+		if is_network_master():
+			$Sprite.flip_h=not x
+			rpc("puppet_sprie_direction",x)
+	
 func get_direction():
+	if get_tree().has_network_peer():
+		if not is_network_master():
+			return puppet_sprite_direction
 	return right
 
 var hp = 1 setget set_hp,get_hp
@@ -197,6 +215,7 @@ func _network_peer_connected(id) -> void:
 	rset_id(id, "puppet_username", username)
 	rset_id(id, "puppet_char", mychar)
 	rset_id(id, "puppet_myOval", myOval)
+	#rset_id(id, "puppet_sprite_direction", right)
 
 
 
@@ -205,15 +224,21 @@ func _on_Network_tick_rate_timeout():
 		if is_network_master():
 			rset_unreliable("puppet_position", global_position)
 			rset_unreliable("puppet_velocity", velocity)
+			rset_unreliable("puppet_sprite_direction", right)
 			#rset_unreliable("puppet_rotation", rotation)
 			
 func get_position():
 	return global_position			
 
 sync func update_position(pos):
+
 	global_position = pos
 	puppet_position = pos
+	
 
+
+
+	
 func update_shoot_mode(shoot_mode):
 	if not shoot_mode:
 		sprite.set_region_rect(Rect2(0, 1500, 256, 250))
