@@ -1,0 +1,15 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+path="res://.import/triButtonMask.png-5f5f36db071f3381bc818b8e9fb95eeb.res"
+
+[deps]
+
+source_file="res://Tasks/Task2/assets/triButtonMask.png"
+dest_files=[ "res://.import/triButtonMask.png-5f5f36db071f3381bc818b8e9fb95eeb.res" ]
+
+[params]
+
+create_from=0
+threshold=0.5
