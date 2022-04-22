@@ -180,9 +180,9 @@ sync func switch_to_game() -> void:
 			child.set_myOval("")
 			child.rpc("update_position", Vector2(100+xinc,650+yinc))	
 			child.set_init_pos(100+xinc)
-			xinc+=100
-			if xinc==200:
-				xinc=150
+			xinc+=200
+			if xinc>200:
+				xinc=50
 				yinc=300
 					
 	print("moving to game")

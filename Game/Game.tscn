@@ -54,7 +54,7 @@ position = Vector2( 943, 527 )
 current = true
 zoom = Vector2( 1.6, 1.6 )
 limit_left = -410
-limit_top = -2920
+limit_top = -3000
 limit_right = 4000
 limit_bottom = 1080
 script = ExtResource( 2 )
@@ -64,7 +64,7 @@ script = ExtResource( 2 )
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 light_mask = 2
 position = Vector2( 175, -3929 )
-polygon = PoolVector2Array( -403, 951, -187, 951, -179, 4991, 3877, 5023, 3869, 991, -139, 959, 9, 754, 4127, 743, 4127, 5166, -395, 5111 )
+polygon = PoolVector2Array( -403, 951, -187, 951, -182, 1027, -179, 4991, 3877, 5023, 3854, 923, -184, 923, 9, 754, 4127, 743, 4127, 5166, -395, 5111 )
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2( 10, 10 )
@@ -109,5 +109,8 @@ margin_top = 1153.85
 margin_right = 2916.92
 margin_bottom = 1353.85
 
+[node name="TasksLayer" type="CanvasLayer" parent="."]
+
 [connection signal="tasks_placed" from="TilesGrid" to="CanvasLayer/dice" method="_on_TilesGrid_tasks_placed"]
 [connection signal="dice_rolled" from="CanvasLayer/dice" to="TilesGrid" method="_on_dice_dice_rolled"]
+[connection signal="player_moved" from="CanvasLayer/dice" to="." method="_on_dice_player_moved"]

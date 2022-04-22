@@ -86,7 +86,7 @@ func _process(delta: float) -> void:
 	if username_text_instance != null:
 		#if the username_text node exists we need to name it as a node a unique name for each player
 		username_text_instance.name = "username" + name
-	
+	"""
 	if get_tree().has_network_peer():
 		# and visible ,because if we are not visible means we're dead so we should not be able to shoot
 		if is_network_master() and visible:
@@ -100,13 +100,11 @@ func _process(delta: float) -> void:
 			#look_at(get_global_mouse_position())
 			
 		else:
-			#rotation = lerp_angle(rotation, puppet_rotation, delta * 8)
-			#tween not active measn the player is not moving because we are not receiving a pakeet(lag)
 			#we need to predict the player next position pased on the last known speed ,untill we recieve a packet to update position
 			if not tween.is_active():
-				move_and_slide(puppet_velocity * speed)
+				move_and_slide(puppet_velocity * speed)"""
 				
-	#we check for health if  it=0 then our player should die
+	
 	if hp <= 0:
 		if username_text_instance != null:
 			username_text_instance.visible = false

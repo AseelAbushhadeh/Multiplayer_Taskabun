@@ -1,0 +1,15 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+path="res://.import/leftMask.png-e7c44531351edd692ae1d200c15b0dfc.res"
+
+[deps]
+
+source_file="res://TouchButtons/leftMask.png"
+dest_files=[ "res://.import/leftMask.png-e7c44531351edd692ae1d200c15b0dfc.res" ]
+
+[params]
+
+create_from=0
+threshold=0.5

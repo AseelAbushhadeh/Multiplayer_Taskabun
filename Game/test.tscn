@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/players/head2Dark.png" type="Texture" id=1]
+[ext_resource path="res://test.gd" type="Script" id=2]
+
+[node name="test" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="center" type="Position2D" parent="."]
+position = Vector2( 920, 520 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+position = Vector2( 920, 520 )
+
+[node name="Sprite" type="Sprite" parent="KinematicBody2D"]
+scale = Vector2( 3, 3 )
+texture = ExtResource( 1 )
+
+[node name="Position2D1" type="Position2D" parent="."]
+position = Vector2( 0, 520 )
+
+[node name="Position2D2" type="Position2D" parent="."]
+position = Vector2( 0, 520 )
+
+[node name="Position2D3" type="Position2D" parent="."]
+position = Vector2( 992, 1080 )
+
+[node name="Position2D4" type="Position2D" parent="."]
+position = Vector2( 1920, 300 )
+
+[node name="Position2D5" type="Position2D" parent="."]
+position = Vector2( 1196, 0 )
+
+[node name="Position2D6" type="Position2D" parent="."]
+position = Vector2( 372, 0 )
+
+[node name="Button" type="Button" parent="."]
+margin_left = 124.0
+margin_top = 824.0
+margin_right = 324.0
+margin_bottom = 1024.0
+text = "herekmmkm"
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

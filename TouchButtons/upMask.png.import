@@ -1,0 +1,15 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+path="res://.import/upMask.png-fed5b0e50279758b31233dce50139d57.res"
+
+[deps]
+
+source_file="res://TouchButtons/upMask.png"
+dest_files=[ "res://.import/upMask.png-fed5b0e50279758b31233dce50139d57.res" ]
+
+[params]
+
+create_from=0
+threshold=0.5

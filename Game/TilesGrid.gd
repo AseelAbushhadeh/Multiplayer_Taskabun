@@ -35,8 +35,6 @@ signal tasks_placed
 func _on_dice_dice_rolled():
 	rpc("clean_up")
 	assign_lists()	
-	#var x=load("res://Game/tasks_launch.tscn").instance()
-	#x.assign_lists(easy,medium,hard)
 	rpc("lanuch_tasks",easy,medium,hard)
 	rpc("assign_tasks")
 	emit_signal("tasks_placed")
@@ -46,7 +44,6 @@ sync func lanuch_tasks(e,m,h):
 	easy=e
 	medium=m
 	hard=h
-	print("adding a child")
 	
 	
 

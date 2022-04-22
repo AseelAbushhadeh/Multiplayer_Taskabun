@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Tasks/Task3/art/enemy-walking-1.png" type="Texture" id=1]
+[ext_resource path="res://Tasks/Task3/art/enemy-walking-2.png" type="Texture" id=2]
+[ext_resource path="res://Tasks/Task3/art/enemy-flying-1.png" type="Texture" id=3]
+[ext_resource path="res://Tasks/Task3/art/enemy-swimming-2.png" type="Texture" id=4]
+[ext_resource path="res://Tasks/Task3/art/enemy-swimming-1.png" type="Texture" id=5]
+[ext_resource path="res://Tasks/Task3/art/enemy-flying-2.png" type="Texture" id=6]
+[ext_resource path="res://Tasks/Task3/Mob.gd" type="Script" id=7]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "swim",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "fly",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 61.6646
+height = 51.1592
+
+[node name="Mob" type="RigidBody2D" groups=["mobs"]]
+position = Vector2( 743, 364 )
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource( 7 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 22.4583, -17.484 )
+rotation = 0.00106907
+scale = Vector2( 1.33999, 1.36475 )
+frames = SubResource( 1 )
+animation = "walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 23, -17 )
+rotation = 1.58573
+shape = SubResource( 2 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 24, -17.5 )
+scale = Vector2( 8, 6.05 )
+
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

@@ -1,0 +1,15 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+path="res://.import/downMask.png-29704a12d5652f25fab95b761fcd820b.res"
+
+[deps]
+
+source_file="res://TouchButtons/downMask.png"
+dest_files=[ "res://.import/downMask.png-29704a12d5652f25fab95b761fcd820b.res" ]
+
+[params]
+
+create_from=0
+threshold=0.5

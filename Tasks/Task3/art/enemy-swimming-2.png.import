@@ -1,0 +1,35 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/enemy-swimming-2.png-a0d54515f6e03d2f74a3f3e5ebc39cb2.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://Tasks/Task3/art/enemy-swimming-2.png"
+dest_files=[ "res://.import/enemy-swimming-2.png-a0d54515f6e03d2f74a3f3e5ebc39cb2.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=true
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+process/normal_map_invert_y=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0

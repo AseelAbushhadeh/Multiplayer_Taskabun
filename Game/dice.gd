@@ -12,7 +12,7 @@ func _on_Button_pressed():
 	
 		
 	
-
+signal player_moved(x)
 
 func _on_TilesGrid_tasks_placed():
 	var c=r
@@ -41,3 +41,5 @@ func _on_TilesGrid_tasks_placed():
 		
 	var inc=Global.player_master.get_hp()
 	Global.player_master.set_hp(c+inc)
+	emit_signal("player_moved",c+inc)
+	
