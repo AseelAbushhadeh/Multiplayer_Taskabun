@@ -1,6 +1,6 @@
 extends Control
 
-
+signal task_ended(result)
 export (PackedScene) var mob_scene
 export var score=5
 var Background=preload("res://Assets/StartBackground/EntryBackground.tscn")
@@ -56,11 +56,13 @@ func game_over():
 	if score>0:	
 		$deathSound.play()
 		yield(get_tree().create_timer(3.0),"timeout")
+		emit_signal("task_ended",false)
 		queue_free()
 	else:
 		$win.play()
 		$Player.queue_free()	
 		yield(get_tree().create_timer(3.0),"timeout")
+		emit_signal("task_ended",true)
 		queue_free()
 	
 	

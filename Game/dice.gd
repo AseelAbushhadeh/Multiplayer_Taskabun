@@ -13,6 +13,7 @@ func _on_Button_pressed():
 		
 	
 signal player_moved(x)
+signal finish_player_turn
 
 func _on_TilesGrid_tasks_placed():
 	var c=r
@@ -43,3 +44,63 @@ func _on_TilesGrid_tasks_placed():
 	Global.player_master.set_hp(c+inc)
 	emit_signal("player_moved",c+inc)
 	
+	
+func player_win():
+	r= range(1,7)[randi()%range(1,7).size()]
+	$label.text=str(r)
+	var c=r
+	var new_pos=Global.player_master.get_position()
+	var x=new_pos.x
+	var y=new_pos.y
+	var myx=Global.player_master.get_init_pos()
+	var right=Global.player_master.get_direction()
+	while r>0:
+		yield(get_tree().create_timer(.5),"timeout")
+		r-=1
+		if (x+400)>4000-(400-myx) and right:
+			y-=400
+			right=false
+			Global.player_master.right=right
+		elif (x-400)<myx and not right:
+			y-=400
+			right=true
+			Global.player_master.right=right
+		elif not right:
+			x-=400			
+		elif right:
+			x+=400	
+		Global.player_master.update_position(Vector2(x,y))	
+		
+	var inc=Global.player_master.get_hp()
+	Global.player_master.set_hp(c+inc)
+	emit_signal("finish_player_turn")
+	
+func player_lose():
+	r= range(1,7)[randi()%range(1,7).size()]
+	$label.text=str(r)
+	var c=r
+	var new_pos=Global.player_master.get_position()
+	var x=new_pos.x
+	var y=new_pos.y
+	var myx=Global.player_master.get_init_pos()
+	var right=Global.player_master.get_direction()
+	while r>0:
+		yield(get_tree().create_timer(.5),"timeout")
+		r-=1
+		if (x+400)>4000-(400-myx) and right:
+			y-=400
+			right=false
+			Global.player_master.right=right
+		elif (x-400)<myx and not right:
+			y-=400
+			right=true
+			Global.player_master.right=right
+		elif not right:
+			x-=400			
+		elif right:
+			x+=400	
+		Global.player_master.update_position(Vector2(x,y))	
+		
+	var inc=Global.player_master.get_hp()
+	Global.player_master.set_hp(c+inc)
+	emit_signal("finish_player_turn")	

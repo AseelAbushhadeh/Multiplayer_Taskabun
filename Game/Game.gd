@@ -21,3 +21,11 @@ func _on_dice_player_moved(x):
 		var t=load(task).instance()
 		t.start_task(v)
 		$TasksLayer.add_child(t)
+		t.connect("task_ended",self,"on_task_ended")
+		
+func on_task_ended(val):
+	yield(get_tree().create_timer(1.0),"timeout")
+	if val:
+		$CanvasLayer/dice.player_win()		
+		
+		
