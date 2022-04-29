@@ -8,6 +8,7 @@ var serversList=[]
 
 
 func _ready():
+	
 	$control.hide()
 	$YSort/glowing.open_and_start()
 	
@@ -58,6 +59,7 @@ func _on_glowing_closed():
 	GameName=$control/GameName.text
 	Network.current_player_username = GameName
 	Network.No_of_players=No_of_players
+	Persistent_nodes.show_nodes()
 	Network.create_server()
 	
 		

@@ -36,9 +36,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 2.0
-margin_top = -81.0
+margin_top = -90.0
 margin_right = -98.0
-margin_bottom = -11.0
+margin_bottom = -20.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "hellojj"
@@ -52,9 +52,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 296.0
-margin_top = -73.0
+margin_top = -90.0
 margin_right = -4.0
-margin_bottom = -3.0
+margin_bottom = -20.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "1"
@@ -75,6 +75,19 @@ margin_right = 150.0
 margin_bottom = 103.0
 texture = ExtResource( 3 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ReferenceRect" type="ReferenceRect" parent="Control"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_right = 3.0
+border_color = Color( 0.956863, 0.964706, 0.921569, 1 )
+border_width = 12.0
+editor_only = false
 __meta__ = {
 "_edit_use_anchors_": false
 }

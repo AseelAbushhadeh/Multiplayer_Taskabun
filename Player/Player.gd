@@ -5,6 +5,8 @@ var right=true setget set_direction,get_direction
 puppet var puppet_sprite_direction=false setget set_sprie_direction,get_sprie_direction
 var initial_pos=0 setget set_init_pos,get_init_pos
 
+
+	
 func set_init_pos(x):
 	initial_pos=x
 func get_init_pos():
@@ -86,7 +88,7 @@ func _process(delta: float) -> void:
 	if username_text_instance != null:
 		#if the username_text node exists we need to name it as a node a unique name for each player
 		username_text_instance.name = "username" + name
-	"""
+	
 	if get_tree().has_network_peer():
 		# and visible ,because if we are not visible means we're dead so we should not be able to shoot
 		if is_network_master() and visible:
@@ -102,7 +104,7 @@ func _process(delta: float) -> void:
 		else:
 			#we need to predict the player next position pased on the last known speed ,untill we recieve a packet to update position
 			if not tween.is_active():
-				move_and_slide(puppet_velocity * speed)"""
+				move_and_slide(puppet_velocity * speed)
 				
 	
 	if hp <= 0:
@@ -307,12 +309,13 @@ sync func destroy() -> void:
 		if is_network_master():
 			Global.player_master = null
 
+"""
 #this function will excute when our current node(player) gets destroied
 func _exit_tree() -> void:
 	#we need to remove our self from the alive player array when we leave
 	Global.alive_players.erase(self)
 	if get_tree().has_network_peer():
 		if is_network_master():
-			Global.player_master = null
+			Global.player_master = null"""
 
 

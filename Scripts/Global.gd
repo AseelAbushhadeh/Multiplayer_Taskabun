@@ -1,5 +1,5 @@
 extends Node
-
+var my_id=-1
 #a reference to player
 var player_master = null
 var ui = null

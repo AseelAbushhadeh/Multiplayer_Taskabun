@@ -42,6 +42,7 @@ func _on_Manual_setup_pressed():
 func _on_Join_server_pressed():
 	Network.ip_address = server_ip_text_edit.text
 	hide()
+	Persistent_nodes.show_nodes()
 	Network.join_server()
 	
 

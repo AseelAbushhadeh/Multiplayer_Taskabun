@@ -67,7 +67,6 @@ sync func remove_player(id):
 	for player in Persistent_nodes.get_children():
 		if player.is_in_group("Player"):
 			var location=get_node("Spawn_locations/" + str(c)).global_position
-			location.y-=150
 			player.rpc("update_position", location)	
 			c+=1
 	Network.No_of_current_players=c-1
@@ -82,6 +81,7 @@ func _on_MasterReady_pressed():
 		$Spawn_locations/oval.hide()
 		start_game.show()
 		my_Id=get_tree().get_network_unique_id()
+		Global.my_id=my_Id
 		instance_player(my_Id)
 		Global.instance_node(load("res://Scripts/Server_advertiser.tscn"), get_tree().current_scene)	
 	else:
@@ -104,6 +104,7 @@ func _on_Ready_pressed():
 				$Spawn_locations/oval.hide()
 				multiplayer_config_ui.hide()
 				my_Id=get_tree().get_network_unique_id()
+				Global.my_id=my_Id
 				instance_player(my_Id)
 				
 			else:
@@ -150,7 +151,6 @@ func _connected_to_server() -> void:
 
 func instance_player(id) -> void:
 	var location=get_node("Spawn_locations/" + str(current_spawn_location_instance_number)).global_position
-	location.y-=150
 	var player_instance = Global.instance_node_at_location(player, Persistent_nodes, location)
 	player_instance.name = str(id)
 	player_instance.set_network_master(id)
@@ -173,21 +173,20 @@ func _on_Start_game_pressed():
 
 sync func switch_to_game() -> void:
 	var xinc=0
-	var yinc=0
+	var yinc=100
 	for child in Persistent_nodes.get_children():
 		if child.is_in_group("Player"):
 			child.update_shoot_mode(true)
 			child.set_myOval("")
-			child.rpc("update_position", Vector2(100+xinc,650+yinc))	
+			child.rpc("update_position", Vector2(100+xinc,600+yinc))	
 			child.set_init_pos(100+xinc)
-			xinc+=200
-			if xinc>200:
+			xinc+=50
+			if xinc==200:
 				xinc=50
 				yinc=300
-					
-	print("moving to game")
-	Persistent_nodes.get_node("background").queue_free()
-	Persistent_nodes.get_node("TextureRect").queue_free()
+	
+	Persistent_nodes.rpc("move_to_ysort")
+	Persistent_nodes.get_node("ui").hide()
 	#get_tree().change_scene("res://Game/Game.tscn")
 	queue_free()
 	Global.instance_node(load("res://Game/Game.tscn"),Persistent_nodes)

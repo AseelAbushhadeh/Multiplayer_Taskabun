@@ -1,13 +1,22 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Persistent_nodes.gd" type="Script" id=1]
 [ext_resource path="res://Assets/background.png" type="Texture" id=2]
 [ext_resource path="res://Assets/glowing square.png" type="Texture" id=3]
+[ext_resource path="res://Game/tree.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Game/smallTree.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Game/bush.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Game/bench.tscn" type="PackedScene" id=7]
 
-[node name="Node" type="Node"]
+[node name="Node" type="YSort"]
 script = ExtResource( 1 )
 
-[node name="background" type="TextureRect" parent="."]
+[node name="ui" type="Control" parent="."]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="background" type="TextureRect" parent="ui"]
 margin_right = 1914.0
 margin_bottom = 1082.0
 texture = ExtResource( 2 )
@@ -17,7 +26,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="ui"]
 margin_left = -71.0
 margin_top = -154.0
 margin_right = 1991.0
@@ -27,3 +36,110 @@ expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Items" type="YSort" parent="."]
+visible = false
+
+[node name="bench" parent="Items" instance=ExtResource( 7 )]
+position = Vector2( 535, 285 )
+
+[node name="bench2" parent="Items" instance=ExtResource( 7 )]
+position = Vector2( 2844, -83 )
+
+[node name="bench3" parent="Items" instance=ExtResource( 7 )]
+position = Vector2( 943, -893 )
+
+[node name="bench4" parent="Items" instance=ExtResource( 7 )]
+position = Vector2( 1283, -2464 )
+
+[node name="bench5" parent="Items" instance=ExtResource( 7 )]
+position = Vector2( 2802, -1253 )
+
+[node name="tree" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 366, -82 )
+
+[node name="tree2" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 2393, 690 )
+
+[node name="tree3" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 1991, -486 )
+
+[node name="tree4" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 3603, -82 )
+
+[node name="tree5" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 3230, -863 )
+
+[node name="tree6" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 843, -1299 )
+
+[node name="tree7" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 1991, -2097 )
+
+[node name="tree8" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 3603, -2097 )
+
+[node name="tree9" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 843, -2895 )
+
+[node name="bush" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 783, 390 )
+
+[node name="bush2" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 1210, 812 )
+
+[node name="bush3" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 2573, 775 )
+
+[node name="bush4" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 1991, 0 )
+
+[node name="bush5" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 2189, -399 )
+
+[node name="bush6" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 2427, -1203 )
+
+[node name="bush7" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 1611, -1203 )
+
+[node name="bush8" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 415, -2006 )
+
+[node name="bush9" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 2039, -2410 )
+
+[node name="bush10" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 3138, -2006 )
+
+[node name="smallTree" parent="Items" instance=ExtResource( 5 )]
+position = Vector2( 415, 775 )
+
+[node name="smallTree2" parent="Items" instance=ExtResource( 5 )]
+position = Vector2( 508, 0 )
+
+[node name="smallTree4" parent="Items" instance=ExtResource( 5 )]
+position = Vector2( 3091, -829 )
+
+[node name="smallTree5" parent="Items" instance=ExtResource( 5 )]
+position = Vector2( 2526, -1240 )
+
+[node name="smallTree6" parent="Items" instance=ExtResource( 5 )]
+position = Vector2( 1517, -1240 )
+
+[node name="smallTree7" parent="Items" instance=ExtResource( 5 )]
+position = Vector2( 736, -1632 )
+
+[node name="smallTree8" parent="Items" instance=ExtResource( 5 )]
+position = Vector2( 1744, -2043 )
+
+[node name="smallTree9" parent="Items" instance=ExtResource( 5 )]
+position = Vector2( 1517, -2447 )
+
+[node name="smallTree10" parent="Items" instance=ExtResource( 5 )]
+position = Vector2( 2745, -2447 )
+
+[node name="smallTree3" parent="Items" instance=ExtResource( 5 )]
+position = Vector2( 2642, -51 )

@@ -4,7 +4,7 @@ extends Control
 func set_image(x):
 	$Control/TextureRect.texture=load(x)
 	
-func set_name(x):
+func set_player_name(x):
 	$Control/name.text=x
 	
 func set_score(x):
@@ -13,7 +13,11 @@ func set_score(x):
 func set_color(x):
 	$Control/ColorRect.color=x	
 
-
+func highlight(x):
+	if x:
+		$Control/ReferenceRect.show()
+	else:
+		$Control/ReferenceRect.hide()	
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
