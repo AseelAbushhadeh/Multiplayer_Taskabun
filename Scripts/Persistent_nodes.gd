@@ -12,5 +12,5 @@ sync func move_to_ysort():
 		if child.is_in_group("Net"):
 			remove_child(child)
 			$YSort.add_child(child)
-	#$Items.show()		
+	$Items.show()		
 

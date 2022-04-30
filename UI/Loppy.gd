@@ -238,6 +238,7 @@ func _on_LeaveButton_pressed():
 			if my_Id==-1:
 				get_tree().change_scene("res://UI/Main.tscn")
 			else:	
+				Persistent_nodes.show_nodes()
 				rpc("remove_player",my_Id)
 				for child in Persistent_nodes.get_children():
 					if child.is_in_group("Net"):
@@ -251,6 +252,7 @@ func _on_LeaveButton_pressed():
 sync func leave_game() -> void:
 	show_popup2("Game Ended back to Main")
 	yield(get_tree().create_timer(.5),"timeout")
+	Persistent_nodes.show_nodes()
 	Network._server_disconnected()
 	Network.reset_network_connection()
 	for child in Persistent_nodes.get_children():

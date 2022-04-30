@@ -22,6 +22,7 @@ func _player_disconnected(id):
 
 
 func _on_LeaveButton_pressed():
+	Persistent_nodes.show_nodes()
 	rpc("remove_player",Global.my_id)
 	var p_ysort=Persistent_nodes.get_node("YSort")
 	for child in p_ysort.get_children():
