@@ -37,6 +37,7 @@ func _on_dice_dice_rolled():
 	assign_lists()	
 	rpc("lanuch_tasks",easy,medium,hard)
 	rpc("assign_tasks")
+	yield(get_tree().create_timer(.5),"timeout")
 	emit_signal("tasks_placed")
 
 

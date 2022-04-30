@@ -1,6 +1,6 @@
 extends Control
 
-var task=""
+var task="" setget set_task,get_task
 func set_number(x):
 	name=str(x)
 	$Label.text=str(x)
@@ -16,7 +16,7 @@ func set_task(x):
 		task=""	
 	$Sprite.texture=load(x)	
 
-func get_task():
+func get_task():	
 	return task		
 
 

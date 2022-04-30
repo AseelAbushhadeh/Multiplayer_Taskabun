@@ -45,8 +45,9 @@ sync func remove_player(id):
 			
 		
 func _on_dice_player_moved(x):
-	yield(get_tree().create_timer(1.0),"timeout")
-	var v=$TilesGrid.get_node(str(x)).get_task()
+	yield(get_tree().create_timer(1),"timeout")
+	var nodetask=$TilesGrid.get_node(str(x))
+	var v=nodetask.get_task()
 	if v!="":		
 		rpc("make_current",Global.player_master)
 		var rt= range(1,4)[randi()%range(1,4).size()]	
