@@ -41,7 +41,6 @@ func _on_Game_player_left(x):
 
 
 func _on_dice_finish_player_turn():
-	print("here")
 	for x in range(scores.size()):
 		scores[x].set_score(players[x].get_hp())
 

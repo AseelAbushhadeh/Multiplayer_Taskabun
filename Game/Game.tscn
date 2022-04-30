@@ -156,6 +156,7 @@ __meta__ = {
 [connection signal="player_left" from="." to="CanvasLayer/score-board/GridContainer" method="_on_Game_player_left"]
 [connection signal="tasks_placed" from="TilesGrid" to="CanvasLayer/dice" method="_on_TilesGrid_tasks_placed"]
 [connection signal="dice_rolled" from="CanvasLayer/dice" to="TilesGrid" method="_on_dice_dice_rolled"]
+[connection signal="finish_player_turn" from="CanvasLayer/dice" to="." method="_on_dice_finish_player_turn"]
 [connection signal="finish_player_turn" from="CanvasLayer/dice" to="CanvasLayer/score-board/GridContainer" method="_on_dice_finish_player_turn"]
 [connection signal="player_moved" from="CanvasLayer/dice" to="." method="_on_dice_player_moved"]
 [connection signal="player_moved" from="CanvasLayer/dice" to="CanvasLayer/score-board/GridContainer" method="_on_dice_player_moved"]

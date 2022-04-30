@@ -10,8 +10,9 @@ func _ready():
 		if child.is_in_group("Player"):
 			num+=1
 			players.append(child)
-	
-	#rpc("make_current",players[next_turn])		
+			
+	$CanvasLayer/dice.hide()
+	make_current(players[next_turn])	
 	
 	
 			
@@ -55,6 +56,9 @@ func _on_dice_player_moved(x):
 		$TasksLayer.add_child(t)
 		$TilesGrid.rpc("clean_up")
 		t.connect("task_ended",self,"on_task_ended")
+	else:	
+		rpc("get_next_turn")
+		make_current(players[next_turn])	
 
 		
 func on_task_ended(val):
@@ -62,16 +66,27 @@ func on_task_ended(val):
 	if val:
 		$CanvasLayer/dice.player_win()		
 	else:
-		$CanvasLayer/dice.player_lose()	
-	next_turn=(next_turn+1)%num
-	#rpc("make_current",players[next_turn])
-		
+		$CanvasLayer/dice.player_lose()		
+	
 
-sync func make_current(x):
-	for c in players:
-		if c!=x:
-			$CanvasLayer/dice.hide()
-		else:
-			$CanvasLayer/dice.show()		
+func _on_dice_finish_player_turn():
+	rpc("get_next_turn")
+	make_current(players[next_turn])
+		
+sync func get_next_turn():
+	next_turn=(next_turn+1)%num
+	
+		
+func make_current(x):	
+	var c=str(x)
+	c=c.split(':');
+	rpc("check_turn",c[0])			
+
+sync func check_turn(x):
+	if x==str(Global.my_id):
+		$CanvasLayer/dice.show()
+	else:
+		$CanvasLayer/dice.hide()	
+
 
 
