@@ -1,7 +1,7 @@
 extends Node2D
 
 var players=[]
-var next_turn=1
+var next_turn=0
 var num=0
 func _ready():	
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
@@ -32,8 +32,8 @@ func _on_LeaveButton_pressed():
 	
 signal player_left(x)	
 sync func remove_player(id):
-	#num-=1
-	#next_turn-=1
+	num-=1
+	next_turn-=1
 	var p_ysort=Persistent_nodes.get_node("YSort")
 	if p_ysort.has_node(str(id)):
 		var p=p_ysort.get_node(str(id))
@@ -63,15 +63,15 @@ func on_task_ended(val):
 		$CanvasLayer/dice.player_win()		
 	else:
 		$CanvasLayer/dice.player_lose()	
-	#next_turn=(next_turn+1)%num
+	next_turn=(next_turn+1)%num
 	#rpc("make_current",players[next_turn])
 		
-"""
+
 sync func make_current(x):
 	for c in players:
 		if c!=x:
 			$CanvasLayer/dice.hide()
 		else:
-			$CanvasLayer/dice.show()		"""
+			$CanvasLayer/dice.show()		
 
 
