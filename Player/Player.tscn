@@ -7,7 +7,6 @@ radius = 19.0
 height = 62.0
 
 [node name="Player" type="KinematicBody2D" groups=["Net", "Player"]]
-z_index = 1
 z_as_relative = false
 collision/safe_margin = 1.0
 script = ExtResource( 2 )
