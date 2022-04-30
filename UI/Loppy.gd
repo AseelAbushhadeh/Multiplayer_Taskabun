@@ -180,14 +180,13 @@ sync func switch_to_game() -> void:
 			child.set_myOval("")
 			child.rpc("update_position", Vector2(100+xinc,600+yinc))	
 			child.set_init_pos(100+xinc)
-			xinc+=50
-			if xinc==200:
+			xinc+=200
+			if xinc==400:
 				xinc=50
-				yinc=300
+				yinc+=300
 	
 	Persistent_nodes.rpc("move_to_ysort")
 	Persistent_nodes.get_node("ui").hide()
-	#get_tree().change_scene("res://Game/Game.tscn")
 	queue_free()
 	Global.instance_node(load("res://Game/Game.tscn"),Persistent_nodes)
 

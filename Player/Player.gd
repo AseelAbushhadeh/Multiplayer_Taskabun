@@ -214,7 +214,7 @@ func puppet_username_set(new_value) -> void:
 func _network_peer_connected(id) -> void:
 	rset_id(id, "puppet_username", username)
 	rset_id(id, "puppet_char", mychar)
-	rset_id(id, "puppet_myOval", myOval)
+	#rset_id(id, "puppet_myOval", myOval)
 	#rset_id(id, "puppet_sprite_direction", right)
 
 
@@ -225,6 +225,7 @@ func _on_Network_tick_rate_timeout():
 			rset_unreliable("puppet_position", global_position)
 			rset_unreliable("puppet_velocity", velocity)
 			rset_unreliable("puppet_sprite_direction", right)
+			rset_unreliable("puppet_myOval",myOval)
 			#rset_unreliable("puppet_rotation", rotation)
 			
 func get_position():
@@ -273,11 +274,7 @@ sync func hit_by_damager(damage):
 	#this will wait .1 second and then our modulate color will go back normal
 	hit_timer.start()
 
-#this function is for when the game ends,we need to reset the player with new heath 
-#also bring back the dead players(hidden) to be alive again(visible)
-#reset the network mastre
-#re add our self to the alive array
-#to start a new round of the game
+
 sync func enable() -> void:
 	hp = 100
 	can_shoot = false

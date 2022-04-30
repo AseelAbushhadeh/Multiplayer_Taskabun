@@ -10,10 +10,9 @@ func _ready():
 		if child.is_in_group("Player"):
 			num+=1
 			players.append(child)
-			
-	#var s=str(players[next_turn]).split(':')
-	#print(s[0])	
-	#rpc("make_current",Persistent_nodes.get_node(s[0]))
+	
+	#rpc("make_current",players[next_turn])		
+	
 	
 			
 			
@@ -33,6 +32,8 @@ func _on_LeaveButton_pressed():
 	
 signal player_left(x)	
 sync func remove_player(id):
+	#num-=1
+	#next_turn-=1
 	var p_ysort=Persistent_nodes.get_node("YSort")
 	if p_ysort.has_node(str(id)):
 		var p=p_ysort.get_node(str(id))
@@ -62,8 +63,15 @@ func on_task_ended(val):
 		$CanvasLayer/dice.player_win()		
 	else:
 		$CanvasLayer/dice.player_lose()	
+	#next_turn=(next_turn+1)%num
 	#rpc("make_current",players[next_turn])
 		
-		
+"""
+sync func make_current(x):
+	for c in players:
+		if c!=x:
+			$CanvasLayer/dice.hide()
+		else:
+			$CanvasLayer/dice.show()		"""
 
 

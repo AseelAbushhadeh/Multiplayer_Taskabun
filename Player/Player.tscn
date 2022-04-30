@@ -25,6 +25,11 @@ __meta__ = {
 position = Vector2( -3, -126 )
 scale = Vector2( 5, 5 )
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 2 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Network_tick_rate" type="Timer" parent="."]
@@ -38,11 +43,6 @@ one_shot = true
 [node name="Hit_timer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 2 )
-rotation = 1.5708
-shape = SubResource( 1 )
 
 [connection signal="timeout" from="Network_tick_rate" to="." method="_on_Network_tick_rate_timeout"]
 [connection signal="timeout" from="Reload_timer" to="." method="_on_Reload_timer_timeout"]
