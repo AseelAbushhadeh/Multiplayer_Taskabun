@@ -69,7 +69,7 @@ sync func remove_player(id):
 			var location=get_node("Spawn_locations/" + str(c)).global_position
 			player.rpc("update_position", location)	
 			c+=1
-	Network.No_of_current_players=c-1
+	
 			
 		
 		

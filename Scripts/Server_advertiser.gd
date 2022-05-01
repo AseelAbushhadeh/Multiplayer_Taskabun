@@ -10,6 +10,7 @@ var broadcast_timer = Timer.new()
 var broadcast_port = Network.DEFAULT_PORT
 
 func _enter_tree():
+	
 	broadcast_timer.wait_time = broadcast_interval
 	broadcast_timer.one_shot = false
 	broadcast_timer.autostart = true
@@ -22,10 +23,14 @@ func _enter_tree():
 		socket_udp.set_broadcast_enabled(true)
 		socket_udp.set_dest_address('255.255.255.255', broadcast_port)
 
+
 func broadcast():
+	#server_info.current_players=(Persistent_nodes.get_child_count()-2)/2
+	var count=get_tree().multiplayer.get_network_connected_peers()
+	server_info.current_players=count.size()+1
 	server_info.name = Network.current_player_username
 	server_info.number_of_players=Network.No_of_players
-	server_info.current_players=Network.No_of_current_players
+	#server_info.current_players=Network.No_of_current_players
 	var packet_message = to_json(server_info)
 	var packet = packet_message.to_ascii()
 	socket_udp.put_packet(packet)
@@ -36,14 +41,3 @@ func _exit_tree():
 		socket_udp.close()
 
 
-#func _on_Timer_timeout():
-	#get_tree().connect("network_peer_connected", self, "_player_connected")
-	#get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
-
-"""
-func _player_connected():
-	print(server_info.current_players)
-	server_info.current_players+=1
-	
-func _player_disconnected():
-	server_info.current_players-=1	"""
