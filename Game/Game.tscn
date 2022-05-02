@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Game/Game.gd" type="Script" id=1]
 [ext_resource path="res://Game/Camera2D.gd" type="Script" id=2]
@@ -7,6 +7,10 @@
 [ext_resource path="res://Game/GridContainer.gd" type="Script" id=5]
 [ext_resource path="res://Game/dice.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Game/TilesGrid.gd" type="Script" id=7]
+[ext_resource path="res://Game/bush.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Game/bench.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Game/tree.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Game/smallTree.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Assets/Triangle.png" type="Texture" id=13]
 [ext_resource path="res://Assets/Triangle Mask.png" type="BitMap" id=14]
 [ext_resource path="res://Fonts/FFFFORWA.ttf" type="DynamicFontData" id=15]
@@ -82,6 +86,119 @@ centered_textures = true
 format = 1
 tile_data = PoolIntArray( -1376236, 0, 0, -655362, 0, 0, -655361, 0, 0, -720896, 0, 0, -720895, 0, 0, -720894, 0, 0, -720893, 0, 0, -720892, 0, 0, -720891, 0, 0, -720890, 0, 0, -720889, 0, 0, -720888, 0, 0, -720887, 0, 0, -720886, 0, 0, -720885, 0, 0, -720884, 0, 0, -720883, 0, 0, -720882, 0, 0, -589826, 0, 0, -589825, 0, 0, -655360, 0, 0, -655359, 0, 0, -655358, 0, 0, -655357, 0, 0, -655356, 0, 0, -655355, 0, 0, -655354, 0, 0, -655353, 0, 0, -655352, 0, 0, -655351, 0, 0, -655350, 0, 0, -655349, 0, 0, -655348, 0, 0, -655347, 0, 0, -655346, 0, 0, -524290, 0, 0, -524289, 0, 0, -589811, 0, 0, -589810, 0, 0, -458754, 0, 0, -458753, 0, 0, -524275, 0, 0, -524274, 0, 0, -393218, 0, 0, -393217, 0, 0, -458739, 0, 0, -458738, 0, 0, -327682, 0, 0, -327681, 0, 0, -393203, 0, 0, -393202, 0, 0, -262146, 0, 0, -262145, 0, 0, -327667, 0, 0, -327666, 0, 0, -196610, 0, 0, -196609, 0, 0, -262131, 0, 0, -262130, 0, 0, -131074, 0, 0, -131073, 0, 0, -196595, 0, 0, -196594, 0, 0, -65538, 0, 0, -65537, 0, 0, -131059, 0, 0, -131058, 0, 0, -3, 0, 0, -2, 0, 0, -1, 0, 0, -65523, 0, 0, -65522, 0, 0, 65534, 0, 0, 65535, 0, 0, 13, 0, 0, 14, 0, 0, 131070, 0, 0, 131071, 0, 0, 65549, 0, 0, 65550, 0, 0, 196606, 0, 0, 196607, 0, 0, 131085, 0, 0, 131086, 0, 0, 262142, 0, 0, 262143, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 196617, 0, 0, 196618, 0, 0, 196619, 0, 0, 196620, 0, 0, 196621, 0, 0, 196622, 0, 0, 327678, 0, 0, 327679, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0, 262155, 0, 0, 262156, 0, 0, 262157, 0, 0, 262158, 0, 0 )
 
+[node name="YSort" type="YSort" parent="."]
+
+[node name="snakes" type="YSort" parent="YSort"]
+z_as_relative = false
+
+[node name="Items" type="YSort" parent="YSort"]
+z_as_relative = false
+
+[node name="bench" parent="YSort/Items" instance=ExtResource( 9 )]
+position = Vector2( 535, 285 )
+
+[node name="bench2" parent="YSort/Items" instance=ExtResource( 9 )]
+position = Vector2( 2852, -105 )
+
+[node name="bench3" parent="YSort/Items" instance=ExtResource( 9 )]
+position = Vector2( 943, -893 )
+
+[node name="bench4" parent="YSort/Items" instance=ExtResource( 9 )]
+position = Vector2( 1261, -2488 )
+
+[node name="bench5" parent="YSort/Items" instance=ExtResource( 9 )]
+position = Vector2( 2806, -1305 )
+
+[node name="tree" parent="YSort/Items" instance=ExtResource( 10 )]
+position = Vector2( 410, -182 )
+
+[node name="tree2" parent="YSort/Items" instance=ExtResource( 10 )]
+position = Vector2( 2401, 621 )
+
+[node name="tree3" parent="YSort/Items" instance=ExtResource( 10 )]
+position = Vector2( 2007, -582 )
+
+[node name="tree4" parent="YSort/Items" instance=ExtResource( 10 )]
+position = Vector2( 3607, -192 )
+
+[node name="tree5" parent="YSort/Items" instance=ExtResource( 10 )]
+position = Vector2( 3230, -863 )
+
+[node name="tree6" parent="YSort/Items" instance=ExtResource( 10 )]
+position = Vector2( 809, -1313 )
+
+[node name="tree7" parent="YSort/Items" instance=ExtResource( 10 )]
+position = Vector2( 1991, -2097 )
+
+[node name="tree8" parent="YSort/Items" instance=ExtResource( 10 )]
+position = Vector2( 3613, -2183 )
+
+[node name="tree9" parent="YSort/Items" instance=ExtResource( 10 )]
+position = Vector2( 811, -2989 )
+
+[node name="bush" parent="YSort/Items" instance=ExtResource( 8 )]
+position = Vector2( 795, 310 )
+
+[node name="bush2" parent="YSort/Items" instance=ExtResource( 8 )]
+position = Vector2( 1210, 1080 )
+
+[node name="bush3" parent="YSort/Items" instance=ExtResource( 8 )]
+position = Vector2( 2537, 699 )
+
+[node name="bush4" parent="YSort/Items" instance=ExtResource( 8 )]
+position = Vector2( 1999, -8 )
+
+[node name="bush5" parent="YSort/Items" instance=ExtResource( 8 )]
+position = Vector2( 2233, -501 )
+
+[node name="bush6" parent="YSort/Items" instance=ExtResource( 8 )]
+position = Vector2( 3013, -1315 )
+
+[node name="bush7" parent="YSort/Items" instance=ExtResource( 8 )]
+position = Vector2( 1609, -1301 )
+
+[node name="bush8" parent="YSort/Items" instance=ExtResource( 8 )]
+position = Vector2( 405, -2048 )
+
+[node name="bush9" parent="YSort/Items" instance=ExtResource( 8 )]
+position = Vector2( 1907, -2512 )
+
+[node name="bush10" parent="YSort/Items" instance=ExtResource( 8 )]
+position = Vector2( 3196, -2088 )
+
+[node name="smallTree" parent="YSort/Items" instance=ExtResource( 11 )]
+position = Vector2( 410, 698 )
+
+[node name="smallTree2" parent="YSort/Items" instance=ExtResource( 11 )]
+position = Vector2( 800, -138 )
+
+[node name="smallTree4" parent="YSort/Items" instance=ExtResource( 11 )]
+position = Vector2( 3091, -829 )
+
+[node name="smallTree5" parent="YSort/Items" instance=ExtResource( 11 )]
+position = Vector2( 2592, -1334 )
+
+[node name="smallTree6" parent="YSort/Items" instance=ExtResource( 11 )]
+position = Vector2( 1515, -1316 )
+
+[node name="smallTree7" parent="YSort/Items" instance=ExtResource( 11 )]
+position = Vector2( 736, -1632 )
+
+[node name="smallTree8" parent="YSort/Items" instance=ExtResource( 11 )]
+position = Vector2( 2164, -2131 )
+
+[node name="smallTree9" parent="YSort/Items" instance=ExtResource( 11 )]
+position = Vector2( 1473, -2509 )
+
+[node name="smallTree10" parent="YSort/Items" instance=ExtResource( 11 )]
+position = Vector2( 2485, -2539 )
+
+[node name="smallTree3" parent="YSort/Items" instance=ExtResource( 11 )]
+position = Vector2( 2632, -131 )
+
+[node name="Players" type="YSort" parent="YSort"]
+z_as_relative = false
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 scale = Vector2( 0.65, 0.65 )
 transform = Transform2D( 0.65, 0, 0, 0.65, 0, 0 )
@@ -153,6 +270,7 @@ __meta__ = {
 
 [node name="TasksLayer" type="CanvasLayer" parent="."]
 
+[connection signal="game_ready" from="." to="CanvasLayer/score-board/GridContainer" method="_on_Game_game_ready"]
 [connection signal="player_left" from="." to="CanvasLayer/score-board/GridContainer" method="_on_Game_player_left"]
 [connection signal="tasks_placed" from="TilesGrid" to="CanvasLayer/dice" method="_on_TilesGrid_tasks_placed"]
 [connection signal="dice_rolled" from="CanvasLayer/dice" to="TilesGrid" method="_on_dice_dice_rolled"]

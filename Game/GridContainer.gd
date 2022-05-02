@@ -6,10 +6,10 @@ onready var player_board=preload("res://Game/Player_board.tscn")
 # Called when the node enters the scene tree for the first time.
 var players=[]
 var scores=[]
-func _ready():
+func _on_Game_game_ready():
 	var c=0
-	yield(get_tree().create_timer(.2),"timeout")
-	var p_ysort=Persistent_nodes.get_node("YSort")
+	var p_ysort=get_parent().get_parent().get_parent().get_node("YSort/Players")
+	
 	for child in p_ysort.get_children():
 		if child.is_in_group("Player"):
 			players.append(child)
@@ -39,11 +39,16 @@ func _on_Game_player_left(x):
 	var v=get_node(x)
 	remove_child(v)
 
-
-func _on_dice_finish_player_turn():
+sync func update_score():
 	for x in range(scores.size()):
 		scores[x].set_score(players[x].get_hp())
 
-
+func _on_dice_finish_player_turn():
+	rpc("update_score")
+	
 func _on_dice_player_moved(x):
-	_on_dice_finish_player_turn()
+	rpc("update_score")
+
+
+
+	

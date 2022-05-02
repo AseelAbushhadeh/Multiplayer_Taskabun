@@ -1,11 +1,16 @@
 extends Node2D
-
+signal game_ready
 var players=[]
 var next_turn=0
 var num=0
 func _ready():	
+	for child in Persistent_nodes.get_children():
+		if child.is_in_group("Net"):
+			Persistent_nodes.remove_child(child)
+			$YSort/Players.add_child(child)
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
-	var p_ysort=Persistent_nodes.get_node("YSort")
+
+	var p_ysort=$YSort/Players
 	for child in p_ysort.get_children():
 		if child.is_in_group("Player"):
 			num+=1
@@ -13,6 +18,7 @@ func _ready():
 			
 	$CanvasLayer/dice.hide()
 	make_current(players[next_turn])	
+	emit_signal("game_ready")
 	
 	
 			
@@ -24,7 +30,7 @@ func _player_disconnected(id):
 func _on_LeaveButton_pressed():
 	Persistent_nodes.show_nodes()
 	rpc("remove_player",Global.my_id)
-	var p_ysort=Persistent_nodes.get_node("YSort")
+	var p_ysort=$YSort/Players
 	for child in p_ysort.get_children():
 		if child.is_in_group("Net"):
 			child.queue_free()	
@@ -35,7 +41,7 @@ signal player_left(x)
 sync func remove_player(id):
 	num-=1
 	next_turn-=1
-	var p_ysort=Persistent_nodes.get_node("YSort")
+	var p_ysort=$YSort/Players
 	if p_ysort.has_node(str(id)):
 		var p=p_ysort.get_node(str(id))
 		emit_signal("player_left",p.username_get())
@@ -48,7 +54,7 @@ func _on_dice_player_moved(x):
 	yield(get_tree().create_timer(1),"timeout")
 	var nodetask=$TilesGrid.get_node(str(x))
 	var v=nodetask.get_task()
-	if v!="":		
+	if v!="" and v!="snake":	
 		rpc("make_current",Global.player_master)
 		var rt= range(1,4)[randi()%range(1,4).size()]	
 		var task="res://Tasks/Task"+str(rt)+"/Task"+str(rt)+".tscn"
@@ -57,6 +63,8 @@ func _on_dice_player_moved(x):
 		$TasksLayer.add_child(t)
 		$TilesGrid.rpc("clean_up")
 		t.connect("task_ended",self,"on_task_ended")
+	elif v=="snake":
+		pass	
 	else:	
 		rpc("get_next_turn")
 		make_current(players[next_turn])	

@@ -47,3 +47,6 @@ expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 200, 200 )

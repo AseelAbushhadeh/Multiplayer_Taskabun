@@ -185,10 +185,11 @@ sync func switch_to_game() -> void:
 				xinc=50
 				yinc+=300
 	
-	Persistent_nodes.rpc("move_to_ysort")
+	#Persistent_nodes.rpc("move_to_ysort")
 	Persistent_nodes.get_node("ui").hide()
 	queue_free()
 	Global.instance_node(load("res://Game/Game.tscn"),Persistent_nodes)
+	#Persistent_nodes.rpc("move_to_ysort")
 
 
 

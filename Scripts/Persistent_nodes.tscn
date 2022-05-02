@@ -1,12 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Persistent_nodes.gd" type="Script" id=1]
 [ext_resource path="res://Assets/background.png" type="Texture" id=2]
 [ext_resource path="res://Assets/glowing square.png" type="Texture" id=3]
-[ext_resource path="res://Game/tree.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Game/smallTree.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Game/bush.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Game/bench.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Assets/World/darkTile.png" type="Texture" id=8]
 
 [sub_resource type="TileSet" id=1]
@@ -63,110 +59,3 @@ expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="YSort" type="YSort" parent="."]
-
-[node name="Items" type="YSort" parent="."]
-visible = false
-
-[node name="bench" parent="Items" instance=ExtResource( 7 )]
-position = Vector2( 535, 285 )
-
-[node name="bench2" parent="Items" instance=ExtResource( 7 )]
-position = Vector2( 2852, -105 )
-
-[node name="bench3" parent="Items" instance=ExtResource( 7 )]
-position = Vector2( 943, -893 )
-
-[node name="bench4" parent="Items" instance=ExtResource( 7 )]
-position = Vector2( 1261, -2488 )
-
-[node name="bench5" parent="Items" instance=ExtResource( 7 )]
-position = Vector2( 2806, -1305 )
-
-[node name="tree" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 410, -182 )
-
-[node name="tree2" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 2401, 621 )
-
-[node name="tree3" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 2007, -582 )
-
-[node name="tree4" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 3607, -192 )
-
-[node name="tree5" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 3230, -863 )
-
-[node name="tree6" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 809, -1313 )
-
-[node name="tree7" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 1991, -2097 )
-
-[node name="tree8" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 3613, -2183 )
-
-[node name="tree9" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 811, -2989 )
-
-[node name="bush" parent="Items" instance=ExtResource( 6 )]
-position = Vector2( 795, 310 )
-
-[node name="bush2" parent="Items" instance=ExtResource( 6 )]
-position = Vector2( 1210, 1080 )
-
-[node name="bush3" parent="Items" instance=ExtResource( 6 )]
-position = Vector2( 2537, 699 )
-
-[node name="bush4" parent="Items" instance=ExtResource( 6 )]
-position = Vector2( 1999, -8 )
-
-[node name="bush5" parent="Items" instance=ExtResource( 6 )]
-position = Vector2( 2233, -501 )
-
-[node name="bush6" parent="Items" instance=ExtResource( 6 )]
-position = Vector2( 3013, -1315 )
-
-[node name="bush7" parent="Items" instance=ExtResource( 6 )]
-position = Vector2( 1609, -1301 )
-
-[node name="bush8" parent="Items" instance=ExtResource( 6 )]
-position = Vector2( 405, -2048 )
-
-[node name="bush9" parent="Items" instance=ExtResource( 6 )]
-position = Vector2( 1907, -2512 )
-
-[node name="bush10" parent="Items" instance=ExtResource( 6 )]
-position = Vector2( 3196, -2088 )
-
-[node name="smallTree" parent="Items" instance=ExtResource( 5 )]
-position = Vector2( 410, 698 )
-
-[node name="smallTree2" parent="Items" instance=ExtResource( 5 )]
-position = Vector2( 800, -138 )
-
-[node name="smallTree4" parent="Items" instance=ExtResource( 5 )]
-position = Vector2( 3091, -829 )
-
-[node name="smallTree5" parent="Items" instance=ExtResource( 5 )]
-position = Vector2( 2592, -1334 )
-
-[node name="smallTree6" parent="Items" instance=ExtResource( 5 )]
-position = Vector2( 1515, -1316 )
-
-[node name="smallTree7" parent="Items" instance=ExtResource( 5 )]
-position = Vector2( 736, -1632 )
-
-[node name="smallTree8" parent="Items" instance=ExtResource( 5 )]
-position = Vector2( 2164, -2131 )
-
-[node name="smallTree9" parent="Items" instance=ExtResource( 5 )]
-position = Vector2( 1473, -2509 )
-
-[node name="smallTree10" parent="Items" instance=ExtResource( 5 )]
-position = Vector2( 2485, -2539 )
-
-[node name="smallTree3" parent="Items" instance=ExtResource( 5 )]
-position = Vector2( 2632, -131 )
