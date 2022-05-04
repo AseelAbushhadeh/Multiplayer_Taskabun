@@ -128,8 +128,11 @@ func set_myOval(x):
 func puppet_myOval_set(new_value):
 	puppet_myOval = new_value
 	if get_tree().has_network_peer():
-		if not is_network_master():			
-			$oval.texture=load(puppet_myOval)
+		if not is_network_master():		
+			if puppet_myOval=="":
+				$oval.hide()	
+			else:	
+				$oval.texture=load(puppet_myOval)
 			myOval = puppet_myOval
 			
 			
@@ -214,7 +217,7 @@ func puppet_username_set(new_value) -> void:
 func _network_peer_connected(id) -> void:
 	rset_id(id, "puppet_username", username)
 	rset_id(id, "puppet_char", mychar)
-	#rset_id(id, "puppet_myOval", myOval)
+	rset_id(id, "puppet_myOval", myOval)
 	#rset_id(id, "puppet_sprite_direction", right)
 
 

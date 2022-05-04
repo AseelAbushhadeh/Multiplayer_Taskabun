@@ -132,3 +132,9 @@ func generate_random_list(x,y):
 			tiles_list.append(r)
 			
 	return tiles_list		
+
+
+
+func _on_dice_player_moved(x):
+	yield(get_tree().create_timer(1),"timeout")
+	clean_up()

@@ -225,13 +225,14 @@ __meta__ = {
 }
 
 [node name="MovingArrows" parent="CanvasLayer" instance=ExtResource( 3 )]
-position = Vector2( 63.0767, 58.4615 )
+visible = false
+position = Vector2( 63.0769, 633.846 )
 
 [node name="dice" parent="CanvasLayer" instance=ExtResource( 6 )]
-margin_left = 63.0767
-margin_top = 658.462
-margin_right = 363.077
-margin_bottom = 858.462
+margin_left = 58.4615
+margin_top = 46.1537
+margin_right = 358.462
+margin_bottom = 354.154
 
 [node name="UI" type="Control" parent="CanvasLayer"]
 margin_left = 9.23077

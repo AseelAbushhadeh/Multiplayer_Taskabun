@@ -7,9 +7,11 @@ func _ready():
 	for child in Persistent_nodes.get_children():
 		if child.is_in_group("Net"):
 			Persistent_nodes.remove_child(child)
-			$YSort/Players.add_child(child)
+			$YSort/Players.add_child(child)		
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
 
+	
+	
 	var p_ysort=$YSort/Players
 	for child in p_ysort.get_children():
 		if child.is_in_group("Player"):
@@ -19,35 +21,53 @@ func _ready():
 	$CanvasLayer/dice.hide()
 	make_current(players[next_turn])	
 	emit_signal("game_ready")
-	
-	
-			
+
 			
 func _player_disconnected(id):
-	rpc("remove_player",id)
-
-
-func _on_LeaveButton_pressed():
-	Persistent_nodes.show_nodes()
-	rpc("remove_player",Global.my_id)
-	var p_ysort=$YSort/Players
-	for child in p_ysort.get_children():
-		if child.is_in_group("Net"):
-			child.queue_free()	
-	queue_free()		
-	get_tree().change_scene("res://UI/Main.tscn")
-	
-signal player_left(x)	
-sync func remove_player(id):
-	num-=1
-	next_turn-=1
 	var p_ysort=$YSort/Players
 	if p_ysort.has_node(str(id)):
 		var p=p_ysort.get_node(str(id))
-		emit_signal("player_left",p.username_get())
 		players.erase(p)
-		p_ysort.get_node(str(id)).username_text_instance.queue_free()
-		p_ysort.get_node(str(id)).queue_free()	
+		emit_signal("player_left",p.username_get(),p)
+		p_ysort.get_node("username"+str(id)).queue_free()
+		p_ysort.get_node(str(id)).queue_free()
+		num-=1
+		next_turn-=1
+		next_turn=(next_turn+1)%num
+		List_cleanup(players[next_turn])
+
+
+	
+func _on_LeaveButton_pressed():
+	Persistent_nodes.show_nodes()	
+	rpc("remove_player",Global.my_id)
+	Network.reset_network_connection()
+	queue_free()
+	get_tree().change_scene("res://UI/Main.tscn")
+	
+signal player_left(x,p)	
+remote func remove_player(id):
+	var p_ysort=$YSort/Players
+	if p_ysort.has_node(str(id)):
+		var p=p_ysort.get_node(str(id))
+		players.erase(p)
+		emit_signal("player_left",p.username_get(),p)
+		p_ysort.get_node("username"+str(id)).queue_free()
+		p_ysort.get_node(str(id)).queue_free()
+		num-=1
+		next_turn-=1
+		next_turn=(next_turn+1)%num
+		List_cleanup(players[next_turn])
+			
+		
+func List_cleanup(x):
+	var c=str(x)
+	c=c.split(':')
+	if c[0]==str(Global.my_id):
+		$CanvasLayer/dice.show()
+	else:
+		$CanvasLayer/dice.hide()
+				
 			
 		
 func _on_dice_player_moved(x):
@@ -88,7 +108,7 @@ sync func get_next_turn():
 		
 func make_current(x):	
 	var c=str(x)
-	c=c.split(':');
+	c=c.split(':')
 	rpc("check_turn",c[0])			
 
 sync func check_turn(x):

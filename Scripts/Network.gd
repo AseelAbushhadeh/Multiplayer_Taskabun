@@ -98,9 +98,7 @@ func _client_connection_timeout():
 		connection_timeout_prompt.set_text("Connection timed out")
 
 func _connection_failed():
-#	for child in Persistent_nodes.get_children():
-	#	if child.is_in_group("Net"):
-	#		child.queue_free()
+
 	
 	reset_network_connection()
 	
