@@ -9,7 +9,7 @@ func _ready():
 			Persistent_nodes.remove_child(child)
 			$YSort/Players.add_child(child)		
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
-
+	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	
 	
 	var p_ysort=$YSort/Players
@@ -22,7 +22,14 @@ func _ready():
 	make_current(players[next_turn])	
 	emit_signal("game_ready")
 
-			
+
+func _server_disconnected():
+	$CanvasLayer/Popup2.popup()
+	yield(get_tree().create_timer(3),"timeout")
+	queue_free()
+	get_tree().change_scene("res://UI/Main.tscn")
+		
+		
 func _player_disconnected(id):
 	var p_ysort=$YSort/Players
 	if p_ysort.has_node(str(id)):
