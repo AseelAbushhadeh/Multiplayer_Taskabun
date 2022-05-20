@@ -109,7 +109,6 @@ func player_lose():
 	inc=Global.player_master.get_hp()
 	
 	Global.player_master.right=not right
-	print("loose direction: ",right)
 	while r>0 and inc>1:
 		yield(get_tree().create_timer(.5),"timeout")
 		r-=1

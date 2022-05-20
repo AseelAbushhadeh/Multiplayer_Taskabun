@@ -35,8 +35,8 @@ func _on_Game_game_ready():
 
 
 func _on_Game_player_left(x,p):
-	print("player x: ",x)
-	print(scores,scores.size())
+	#print("player x: ",x)
+	#print(scores,scores.size())
 	var v=get_node(x)
 	for i in range(scores.size()):
 		if players[i]==p:
@@ -48,7 +48,7 @@ func _on_Game_player_left(x,p):
 
 sync func update_score():
 	for x in range(scores.size()):
-		print(x," : ",scores[x]," : ",players[x])
+		#print(x," : ",scores[x]," : ",players[x])
 		scores[x].set_score(players[x].get_hp())
 
 func _on_dice_finish_player_turn():

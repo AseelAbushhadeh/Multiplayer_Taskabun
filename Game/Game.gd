@@ -49,6 +49,7 @@ func _on_LeaveButton_pressed():
 	Persistent_nodes.show_nodes()	
 	rpc("remove_player",Global.my_id)
 	Network.reset_network_connection()
+	Network._server_disconnected()
 	queue_free()
 	get_tree().change_scene("res://UI/Main.tscn")
 	
@@ -76,7 +77,8 @@ func List_cleanup(x):
 		$CanvasLayer/dice.hide()
 				
 			
-		
+signal started_task
+signal finished_task		
 func _on_dice_player_moved(x):
 	yield(get_tree().create_timer(1),"timeout")
 	var nodetask=$TilesGrid.get_node(str(x))
@@ -88,23 +90,34 @@ func _on_dice_player_moved(x):
 		var t=load(task).instance()
 		t.start_task(v)
 		$TasksLayer.add_child(t)
+		for child in get_children():
+			if child.is_in_group("NotTask"):
+				child.hide()
+		#emit_signal("started_task")
 		$TilesGrid.rpc("clean_up")
 		t.connect("task_ended",self,"on_task_ended")
 	elif v=="snake":
-		pass	
+		rpc("get_next_turn")
+		make_current(players[next_turn])	
 	else:	
 		rpc("get_next_turn")
 		make_current(players[next_turn])	
 
 		
 func on_task_ended(val):
+	emit_signal("finished_task")
+	for child in get_children():
+			if child.is_in_group("NotTask"):
+				child.show()
 	yield(get_tree().create_timer(1.0),"timeout")
 	if val:
 		$CanvasLayer/dice.player_win()		
 	else:
 		$CanvasLayer/dice.player_lose()		
 	
-
+remote func view_port_texture():
+	pass
+	
 func _on_dice_finish_player_turn():
 	rpc("get_next_turn")
 	make_current(players[next_turn])
