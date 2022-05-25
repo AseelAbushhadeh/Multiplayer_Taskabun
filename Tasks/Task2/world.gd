@@ -10,50 +10,70 @@ var equation=[]
 var unsolvable=false
 var duration=0
 var result
-var stop=false	
+var player
 signal task_ready
 func _ready():
+	if player:
+		$CanvasLayer/ReferenceRect.hide()
+		$CanvasLayer/TextureRect.hide()
 	randomize()
 	$options.hide()
 	$result.hide()
 	$ready.hide()
 	emit_signal("task_ready")
-	
+
+
+func set_values(d,h,l,p):
+	duration=d	
+	hardness=h
+	player=p
+	length=l
+	start_task()
+		
 	
 var hardness=0		
-func start_task(x):
+func start_task():
 	yield(self,"task_ready")
-	if x=="meduim":
-		hardness=1
-	if x=="hard":
-		hardness=2	
+	if not player:
+		$options/option1.disabled=true
+		$options/option2.disabled=true
+		$options/option3.disabled=true
 		
-	length=range(2,4+hardness)[randi()%range(2,4+hardness).size()]
-	duration=(length*(length-hardness))
 	show_message("Think Fast!")
 	yield(get_tree().create_timer(3),"timeout")
-	set_equation(length)
+	if player:
+		set_equation(length)
+		rpc("get_equation",equation,$equation.text)
+	else:
+		yield(self,"equation_ready")			
 	solve_equation()
 	result=equation[0]
-	if not stop:
-		yield(get_tree().create_timer(duration+2),"timeout")
-		show_buttons()
+	
 
+signal equation_ready		
+remote func get_equation(x,v):
+	equation=x
+	$equation.text=v
+	emit_signal("equation_ready")
+	
 func _on_ready_pressed():
 	$counter.stop_timer()
-	stop=true
-	#$ready.queue_free()
 	show_buttons()	
 
 func show_buttons():
 	$ready.hide()
-	$equation.text="Select the right answer"
-	var buttons=[$options/option1/Label,$options/option2/Label,$options/option3/Label]
+	if player:
+		$equation.text="Select the right answer"
+	var buttons=["options/option1/Label","options/option2/Label","options/option3/Label"]
 	buttons.shuffle()
-	buttons[0].text=str(result)
-	var tempn=range(1,11)[randi()%range(1,11).size()]
-	buttons[1].text=str(result*2+3)
-	buttons[2].text=str(result*2-tempn)
+	if player:
+		var tempn=range(1,11)[randi()%range(1,11).size()]
+		rpc("show_after_shuffle",buttons,tempn,result)
+	
+sync func show_after_shuffle(buttons,tempn,r):	
+	get_node(buttons[0]).text=str(r)
+	get_node(buttons[1]).text=str(r*2+3)
+	get_node(buttons[2]).text=str(r*2-tempn)
 	$options.show()
 	$counter2.start_timer(5)
 	$counter2.show()
@@ -121,49 +141,67 @@ func show_message(val):
 	$equation.show()
 	yield(get_tree().create_timer(3),"timeout")
 	$counter.start_timer(duration)
-	$ready.show()
+	if player:
+		$ready.show()
 
 
 func _on_option1_pressed():
-	$counter2.stop_timer()
-	$options.hide()
-	if $options/option1/Label.text==str(result):
-		end_task(true)
-	else:
-		end_task(false)
+	if player:
+		$counter2.stop_timer()
+		$options.hide()
+		if $options/option1/Label.text==str(result):
+			end_task(true)
+		else:
+			end_task(false)
 
 
 func _on_option2_pressed():
-	$counter2.stop_timer()
-	$options.hide()
-	if $options/option2/Label.text==str(result):
-		end_task(true)
-	else:
-		end_task(false)	
+	if player:
+		$counter2.stop_timer()
+		$options.hide()
+		if $options/option2/Label.text==str(result):
+			end_task(true)
+		else:
+			end_task(false)	
 		
 
 func _on_option3_pressed():
-	$counter2.stop_timer()
-	$options.hide()
-	if $options/option3/Label.text==str(result):
-		end_task(true)
-	else:	
-		end_task(false)	
+	if player:
+		$counter2.stop_timer()
+		$options.hide()
+		if $options/option3/Label.text==str(result):
+			end_task(true)
+		else:	
+			end_task(false)	
 		
 
 func end_task(val):
+	if player:
+		rpc("task_ended",val)
+	
+sync func task_ended(val):
 	$counter2.stop_timer()
 	$options.hide()
 	$music.stop()
 	if val:		
 		$win.play()
-		$equation.text="Congrats you won!"
+		if player:
+			$equation.text="Congrats you won!"
+		else:
+			$equation.text="Player "+""+" won!"	
 	else:
 		$lose.play()
-		$equation.text="Sorry you lost!"
+		if player:
+			$equation.text="Sorry you lost!"
+		else:
+			$equation.text="Player "+""+" lost!"	
 	yield(get_tree().create_timer(3),"timeout")
 	emit_signal("task_ended",val)
 	queue_free()
-
+	
 func _on_counter2_timeIsDone():
 	end_task(false)
+
+
+func _on_counter_timeIsDone():
+	show_buttons()

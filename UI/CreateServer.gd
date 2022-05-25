@@ -42,7 +42,7 @@ func _on_No4_pressed():
 
 func _on_Create_pressed():
 	var val=$control/GameName.text.replace(" ","")
-	if val!="" and val.length()>3 and val.length()<25:
+	if val!="" and val.length()>=3 and val.length()<25:
 		GameName=$control/GameName.text
 		var c=-1;
 		if c==-1:

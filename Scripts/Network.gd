@@ -63,10 +63,7 @@ func join_server() -> void:
 	
 	
 
-	
-#when we disconnected from the server
-#we are no longger using our network connection
-#then our peer of network needs to be destroied >>null
+
 func reset_network_connection() -> void:
 	if get_tree().has_network_peer():
 		get_tree().network_peer = null
@@ -111,6 +108,6 @@ func puppet_networked_object_name_index_set(new_value):
 
 func networked_object_name_index_set(new_value):
 	networked_object_name_index = new_value
-	#if we are the active node and we updated the name index we wanna make all clients updates their index too
+
 	if get_tree().is_network_server():
 		rset("puppet_networked_object_name_index", networked_object_name_index)

@@ -16,6 +16,7 @@ onready var master_ready = $Spawn_locations/MasterReady
 onready var chars_list=$Multiplayer_configure/Charecters
 
 
+
 func _ready() -> void:
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
@@ -28,8 +29,7 @@ func _ready() -> void:
 	if get_tree().network_peer != null:
 		
 		current_spawn_location_instance_number = 1
-			
-					
+
 						
 	if get_tree().network_peer != null:
 		if get_tree().is_network_server():
@@ -161,9 +161,7 @@ func instance_player(id) -> void:
 	var s="res://Assets/players/body"+str(player_char)+".png"
 	player_instance.mychar=s
 	current_spawn_location_instance_number += 1
-	if get_tree().network_peer != null:
-			if get_tree().is_network_server():
-				Persistent_nodes.rpc("update_number_of_players",true)
+	
 	
 
 func _on_Start_game_pressed():

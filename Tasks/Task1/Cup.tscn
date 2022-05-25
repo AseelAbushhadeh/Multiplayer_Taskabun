@@ -14,20 +14,20 @@ animations = [ {
 "name": "cupIdle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ), ExtResource( 4 ) ],
+"frames": [ ExtResource( 4 ), ExtResource( 6 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 4 ) ],
 "loop": false,
-"name": "cupDown",
-"speed": 5.0
+"name": "cupWin",
+"speed": 10.0
 }, {
 "frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
 "loop": false,
 "name": "cupUp",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 6 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 4 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 4 ) ],
 "loop": false,
-"name": "cupWin",
-"speed": 10.0
+"name": "cupDown",
+"speed": 5.0
 } ]
 
 [node name="Cup" type="Area2D"]

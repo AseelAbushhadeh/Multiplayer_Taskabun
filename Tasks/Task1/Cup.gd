@@ -13,7 +13,7 @@ func enable_click(x):
 func _ready():
 	$AnimatedSprite.play("cupIdle")
 
-func on_click(duration):
+sync func on_click(duration):
 	$AnimatedSprite.play("cupUp")	
 	yield(get_tree().create_timer(duration),"timeout")
 	$AnimatedSprite.play("cupDown")
@@ -23,15 +23,17 @@ func show_coin():
 	$AnimatedSprite.play("cupWin")	
 			
 
-
+sync func show_win():
+	$AnimatedSprite.play("cupIdle")
+	$AnimatedSprite.play("cupWin")
 	
 
 func _on_ReferenceRect_gui_input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():
 		if coin:
-			$AnimatedSprite.play("cupIdle")
-			$AnimatedSprite.play("cupWin")	
-			get_parent().get_parent().stop_timer(true)
+			rpc("show_win")	
+			get_parent().get_parent().rpc("stop_timer",true)
 		else:
-			self.on_click(.3)	
-			get_parent().get_parent().stop_timer(false)
+			#self.on_click(.3)	
+			rpc("on_click",.3)
+			get_parent().get_parent().rpc("stop_timer",false)

@@ -126,7 +126,7 @@ func generate_snakes_random_list(x,y,z):
 	
 func generate_random_list(x,y):
 	var tiles_list=[]
-	for i in range(15):
+	for i in range(35):
 		var r= range(x,y)[randi()%range(x,y).size()]
 		if tiles_list.find(r)==-1:
 			tiles_list.append(r)

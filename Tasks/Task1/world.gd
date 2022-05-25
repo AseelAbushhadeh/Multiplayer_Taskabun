@@ -12,36 +12,48 @@ signal show_finished
 signal label_ready
 var hardness=0
 signal task_ready
+var start_cup_list
+var start_cup
+var cup_list_next
+var player
 func _ready():
+	if player:
+		$CanvasLayer/ReferenceRect.hide()
+		$CanvasLayer/TextureRect.hide()
 	for x in $cupsSet.get_children():
 		x.enable_click(false)
 	randomize()
 	emit_signal("task_ready")
-	
 
-func start_task(x):
+
+func set_values(n,d,h,s,c,p):
+	number=n
+	duration=d	
+	hardness=h
+	start_cup_list=s
+	start_cup=0
+	cup_list_next=c
+	player=p
+	start_task()
+	
+	
+func start_task():
 	yield(self,"task_ready")
 	$clock.hide()
-	number=range(2,5)[randi()%range(2,5).size()]
-	if x=="easy":
-		duration=range(5,10)[randi()%range(5,10).size()]
-	elif x=="medium":
-		duration=range(8,15)[randi()%range(8,15).size()]	
-		hardness=.2
-	else:
-		duration=range(15,20)[randi()%range(15,20).size()]	
-		hardness=.5
 	delete_extras(number)
-	var r=select_initial_position(number)	
-	show_start(r+1)
-	get_node("cupsSet/Cup"+str(r+1)).coin=true
+	var r=start_cup_list[1]
+	show_start(r)
+	get_node("cupsSet/Cup"+str(r)).coin=true
 	yield(self,"show_finished")
 	shuffle(number)
 	
 
 func show_message(val,stay):
 	$startLabel.hide()
-	$startLabel.text=val
+	if player:
+		$startLabel.text=val
+	else:
+		$startLabel.text=""	
 	yield(get_tree().create_timer(.5),"timeout")
 	$startLabel.show()
 	yield(get_tree().create_timer(stay),"timeout")
@@ -72,18 +84,16 @@ func shuffle(number):
 	$secondTimer.start()
 	$clock.text=str(duration)
 	$clock.show()
-	var period
 	while $Timer.time_left > 0:
-		period=rng.randf_range(.7,2.5)-hardness
 		$swipe.play()
-		#period=range(1,4)[randi()%range(1,4).size()]-.5
 		exchange_positions(number)
-		yield(get_tree().create_timer(period),"timeout")
+		yield(get_tree().create_timer(hardness),"timeout")
 	
 
 func exchange_positions(number):
-	var	r=range(1,number+1)[randi()%range(1,number+1).size()]
-	var pos=get_next_cup(number,r)
+	var r=start_cup_list[start_cup]
+	var pos=cup_list_next[start_cup]
+	start_cup=(start_cup+1)%6
 	var p1=get_node("cupsSet/Cup"+str(pos)).position
 	var p2=get_node("cupsSet/Cup"+str(r)).position
 	var v1=p1
@@ -153,8 +163,9 @@ func _on_Timer_timeout():
 	$clock.show()
 	$secondTimer.start()
 	$ColorRect.hide()
-	for x in $cupsSet.get_children():
-		x.enable_click(true)
+	if player:
+		for x in $cupsSet.get_children():
+			x.enable_click(true)
 	
 func _on_secondTimer_timeout():
 	var v=int($clock.text)	
@@ -172,14 +183,15 @@ func _on_secondTimer_timeout():
 			for x in $cupsSet.get_children():
 				x.enable_click(false)
 			$lose.play()
-			self.stop_timer(false)
+			rpc("stop_timer",false)
+			#self.stop_timer(false)
 			#self.show_static_message("Sorry you lost!")
 			
 signal task_ended(c)
 
 var Coin=preload("res://Tasks/Task1/coin.tscn")	
-	
-func stop_timer(val):
+signal cup_selected(x)	
+sync func stop_timer(val):
 	$secondTimer.stop()
 	$clock.hide()	
 	$ColorRect.color="#dda91e"
@@ -190,32 +202,25 @@ func stop_timer(val):
 	if val:
 		var coin=Coin.instance()
 		$win.play()
-		self.show_static_message("Congrats you won!")
+		if player:
+			self.show_static_message("Congrats you won!")
+		else:
+			self.show_static_message("Player "+""+" won!")	
 		$coinPosition.add_child(Coin.instance())	
 		yield(get_tree().create_timer(2.5),"timeout")
 		emit_signal("task_ended",true)
 	else:
 		$lose.play()
-		self.show_static_message("Sorry you lost!")	
+		if player:
+			self.show_static_message("Sorry you lost!")	
+		else:
+			self.show_static_message("Player "+""+" lost!")	
 		yield(get_tree().create_timer(2.5),"timeout")
 		emit_signal("task_ended",false)
 	queue_free()	
 		
 	
-			
-						
-		
-	
-func select_initial_position(val):
-	if val==4:
-		var r= range(1,5)[randi()%range(1,5).size()]
-		return r-1
-	elif val==3:
-		var r= range(1,4)[randi()%range(1,4).size()]	
-		return r-1
-	else:
-		var r= range(1,3)[randi()%range(1,3).size()]	
-		return r-1
+
 		
 
 func delete_extras(val):
