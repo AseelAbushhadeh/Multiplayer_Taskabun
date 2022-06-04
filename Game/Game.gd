@@ -36,7 +36,6 @@ func _player_disconnected(id):
 		var p=p_ysort.get_node(str(id))
 		players.erase(p)
 		emit_signal("player_left",p.username_get(),p)
-		p_ysort.get_node("username"+str(id)).queue_free()
 		p_ysort.get_node(str(id)).queue_free()
 		num-=1
 		next_turn-=1
@@ -60,12 +59,13 @@ remote func remove_player(id):
 		var p=p_ysort.get_node(str(id))
 		players.erase(p)
 		emit_signal("player_left",p.username_get(),p)
-		p_ysort.get_node("username"+str(id)).queue_free()
-		p_ysort.get_node(str(id)).queue_free()
-		num-=1
-		next_turn-=1
-		next_turn=(next_turn+1)%num
-		List_cleanup(players[next_turn])
+		if p_ysort.get_node("username"+str(id))!=null:
+			p_ysort.get_node("username"+str(id)).queue_free()
+			p_ysort.get_node(str(id)).queue_free()
+			num-=1
+			next_turn-=1
+			next_turn=(next_turn+1)%num
+			List_cleanup(players[next_turn])
 			
 		
 func List_cleanup(x):
@@ -80,6 +80,7 @@ func List_cleanup(x):
 signal started_task
 signal finished_task		
 func _on_dice_player_moved(x):
+
 	yield(get_tree().create_timer(1),"timeout")
 	var nodetask=$TilesGrid.get_node(str(x))
 	var v=nodetask.get_task()

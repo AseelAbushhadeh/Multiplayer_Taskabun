@@ -1,0 +1,119 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Game/tree.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Game/bush.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Game/bench.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Game/smallTree.tscn" type="PackedScene" id=4]
+
+[node name="YSort" type="YSort"]
+
+[node name="snakes" type="YSort" parent="."]
+z_as_relative = false
+
+[node name="Items" type="YSort" parent="."]
+z_as_relative = false
+
+[node name="bench" type="StaticBody2D" parent="Items" instance=ExtResource( 3 )]
+position = Vector2( 535, 285 )
+
+[node name="bench2" type="StaticBody2D" parent="Items" instance=ExtResource( 3 )]
+position = Vector2( 2852, -105 )
+
+[node name="bench3" type="StaticBody2D" parent="Items" instance=ExtResource( 3 )]
+position = Vector2( 943, -893 )
+
+[node name="bench4" type="StaticBody2D" parent="Items" instance=ExtResource( 3 )]
+position = Vector2( 1261, -2488 )
+
+[node name="bench5" type="StaticBody2D" parent="Items" instance=ExtResource( 3 )]
+position = Vector2( 2806, -1305 )
+
+[node name="tree" type="StaticBody2D" parent="Items" instance=ExtResource( 1 )]
+position = Vector2( 410, -182 )
+
+[node name="tree2" type="StaticBody2D" parent="Items" instance=ExtResource( 1 )]
+position = Vector2( 2401, 621 )
+
+[node name="tree3" type="StaticBody2D" parent="Items" instance=ExtResource( 1 )]
+position = Vector2( 2007, -582 )
+
+[node name="tree4" type="StaticBody2D" parent="Items" instance=ExtResource( 1 )]
+position = Vector2( 3607, -192 )
+
+[node name="tree5" type="StaticBody2D" parent="Items" instance=ExtResource( 1 )]
+position = Vector2( 3230, -863 )
+
+[node name="tree6" type="StaticBody2D" parent="Items" instance=ExtResource( 1 )]
+position = Vector2( 809, -1313 )
+
+[node name="tree7" type="StaticBody2D" parent="Items" instance=ExtResource( 1 )]
+position = Vector2( 1991, -2097 )
+
+[node name="tree8" type="StaticBody2D" parent="Items" instance=ExtResource( 1 )]
+position = Vector2( 3613, -2183 )
+
+[node name="tree9" type="StaticBody2D" parent="Items" instance=ExtResource( 1 )]
+position = Vector2( 811, -2989 )
+
+[node name="bush" type="Node2D" parent="Items" instance=ExtResource( 2 )]
+position = Vector2( 795, 310 )
+
+[node name="bush2" type="Node2D" parent="Items" instance=ExtResource( 2 )]
+position = Vector2( 1210, 1080 )
+
+[node name="bush3" type="Node2D" parent="Items" instance=ExtResource( 2 )]
+position = Vector2( 2537, 699 )
+
+[node name="bush4" type="Node2D" parent="Items" instance=ExtResource( 2 )]
+position = Vector2( 1999, -8 )
+
+[node name="bush5" type="Node2D" parent="Items" instance=ExtResource( 2 )]
+position = Vector2( 2233, -501 )
+
+[node name="bush6" type="Node2D" parent="Items" instance=ExtResource( 2 )]
+position = Vector2( 3013, -1315 )
+
+[node name="bush7" type="Node2D" parent="Items" instance=ExtResource( 2 )]
+position = Vector2( 1609, -1301 )
+
+[node name="bush8" type="Node2D" parent="Items" instance=ExtResource( 2 )]
+position = Vector2( 405, -2048 )
+
+[node name="bush9" type="Node2D" parent="Items" instance=ExtResource( 2 )]
+position = Vector2( 1907, -2512 )
+
+[node name="bush10" type="Node2D" parent="Items" instance=ExtResource( 2 )]
+position = Vector2( 3196, -2088 )
+
+[node name="smallTree" type="Node2D" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 410, 698 )
+
+[node name="smallTree2" type="Node2D" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 800, -138 )
+
+[node name="smallTree4" type="Node2D" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 3091, -829 )
+
+[node name="smallTree5" type="Node2D" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 2592, -1334 )
+
+[node name="smallTree6" type="Node2D" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 1515, -1316 )
+
+[node name="smallTree7" type="Node2D" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 736, -1632 )
+
+[node name="smallTree8" type="Node2D" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 2164, -2131 )
+
+[node name="smallTree9" type="Node2D" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 1473, -2509 )
+
+[node name="smallTree10" type="Node2D" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 2485, -2539 )
+
+[node name="smallTree3" type="Node2D" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 2632, -131 )
+
+[node name="Players" type="YSort" parent="."]
+z_as_relative = false

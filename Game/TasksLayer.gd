@@ -7,22 +7,49 @@ var cup_list=[]
 var cup_list_next=[]
 var length=0
 var equation
+var rt
+var loc
+var active=false
+var direction
 func select_task(v):
-	var rt= range(1,3)[randi()%range(1,3).size()]	
+	#var rt= range(1,3)[randi()%range(1,3).size()]	
+	rt=0
 	var task="res://Tasks/Task"+str(rt)+"/Task"+str(rt)+".tscn"
 	var t=load(task).instance()
-	match rt:		
+	match rt:	
+		0:
+			active=true;
+			var id=Global.my_id
+		
+			rpc("upload_task0",id,v)
 		1:
 			generate_values_1(v)
 			t.set_values(number,duration,hardness,cup_list,cup_list_next,true)
 		2:
 			generate_values_2(v)	
 			t.set_values(duration,hardness,length,true)
+	if rt!=0:
+		add_child(t)
+		t.connect("task_ended",self,"on_task_ended")
+		rpc("set_values",number,duration,hardness,cup_list,cup_list_next,length)
+		rpc("start_task",rt)
 
-	add_child(t)
+
+signal task0_started(x)
+
+sync func upload_task0(id,v):
+	emit_signal("task0_started",true)
+	get_parent().get_node("Camera2D").current=false
+	rt=0
+	direction=Global.player_master.get_direction()
+	var task="res://Tasks/Task"+str(rt)+"/Task"+str(rt)+".tscn"
+	var t=load(task).instance()
+	loc=Global.player_master.get_position()
+	Global.player_master.set_init_pos(loc)
+	t.set_values(id,active,v)	
+	get_parent().get_node("Task0Layer").add_child(t)
 	t.connect("task_ended",self,"on_task_ended")
-	rpc("set_values",number,duration,hardness,cup_list,cup_list_next,length)
-	rpc("start_task",rt)
+	
 	
 var rng = RandomNumberGenerator.new()
 func generate_values_1(x):
@@ -69,20 +96,34 @@ remote func set_values(n,d,h,s,c,l):
 	length=l
 				
 
-remote func start_task(rt):
+remote func start_task(r):
+	rt=r
 	var task="res://Tasks/Task"+str(rt)+"/Task"+str(rt)+".tscn"
 	var t=load(task).instance()
-	match rt:		
+	match rt:
 		1:
 			t.set_values(number,duration,hardness,cup_list,cup_list_next,false)
 		2:
 			t.set_values(duration,hardness,length,false)	
 	
 	add_child(t)
+	if rt==0:
+		t.connect("task_ended",self,"on_task_ended")
+
+	
 	
 func on_task_ended(val):
-	emit_signal("task_finished",val)	
+	if rt==0:
+		emit_signal("task0_started",false)
+		get_parent().get_node("Camera2D").make_current()
+		Global.player_master.set_direction(direction)	
+		Global.player_master.update_position(loc)
+	if active:		
+		emit_signal("task_finished",val)	
+	active=false	
 
+
+	
 
 """
 onready var _viewport = get_viewport()

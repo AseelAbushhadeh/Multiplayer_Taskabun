@@ -22,9 +22,9 @@ func animate_dice():
 	emit_signal("animation_over")		
 	
 		
-"""
+
 func _on_Timer_timeout():
-	emit_signal("animation_over")	"""
+	emit_signal("animation_over")
 
 
 signal player_moved(x)

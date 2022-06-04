@@ -1,0 +1,8 @@
+[gd_scene format=2]
+
+[node name="Borders" type="StaticBody2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+light_mask = 2
+position = Vector2( 175, -3929 )
+polygon = PoolVector2Array( -403, 951, -187, 951, -182, 1027, -179, 4991, 3877, 5023, 3854, 923, -184, 923, 9, 754, 4127, 743, 4127, 5166, -395, 5111 )

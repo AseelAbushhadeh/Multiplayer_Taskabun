@@ -12,6 +12,7 @@ z_as_relative = false
 [node name="Control" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
+rect_scale = Vector2( 0.5, 0.5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -21,21 +22,25 @@ position = Vector2( 87, -53 )
 normal = ExtResource( 1 )
 pressed = ExtResource( 1 )
 action = "up"
+visibility_mode = 1
 
 [node name="TouchScreenButton2" type="TouchScreenButton" parent="Control"]
 position = Vector2( 87, 232 )
 normal = ExtResource( 3 )
 pressed = ExtResource( 3 )
 action = "down"
+visibility_mode = 1
 
 [node name="TouchScreenButton3" type="TouchScreenButton" parent="Control"]
 position = Vector2( -54, 77 )
 normal = ExtResource( 4 )
 pressed = ExtResource( 4 )
 action = "left"
+visibility_mode = 1
 
 [node name="TouchScreenButton4" type="TouchScreenButton" parent="Control"]
 position = Vector2( 249, 77 )
 normal = ExtResource( 2 )
 pressed = ExtResource( 2 )
 action = "right"
+visibility_mode = 1

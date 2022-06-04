@@ -5,6 +5,7 @@ var hard=[]
 var snakes_e=[]
 var snakes_m=[]
 var snakes_h=[]
+
 onready var Tile=preload("res://Game/Tile.tscn")
 func _ready():
 	randomize()	
@@ -97,14 +98,14 @@ sync func clean_up():
 		get_node(str(i)).set_task("")	
 	for i in hard:
 		get_node(str(i)).set_task("")
-	for i in get_parent().get_node("YSort/snakes").get_children():
+	"""for i in get_parent().get_node("YSort/snakes").get_children():
 		i.queue_free()
 	for i in snakes_e:
 		get_node(str(i)).set_task("")	
 	for i in snakes_m:
 		get_node(str(i)).set_task("")	
 	for i in snakes_h:
-		get_node(str(i)).set_task("")		
+		get_node(str(i)).set_task("")"""		
 
 func assign_lists():
 	easy=generate_random_list(1,34)

@@ -174,7 +174,6 @@ sync func switch_to_game() -> void:
 	var yinc=100
 	for child in Persistent_nodes.get_children():
 		if child.is_in_group("Player"):
-			child.update_shoot_mode(true)
 			child.set_myOval("")
 			child.rpc("update_position", Vector2(100+xinc,600+yinc))	
 			child.set_init_pos(100+xinc)
@@ -183,11 +182,10 @@ sync func switch_to_game() -> void:
 				xinc=50
 				yinc+=300
 	
-	#Persistent_nodes.rpc("move_to_ysort")
 	Persistent_nodes.get_node("ui").hide()
 	queue_free()
 	Global.instance_node(load("res://Game/Game.tscn"),Persistent_nodes)
-	#Persistent_nodes.rpc("move_to_ysort")
+
 
 
 

@@ -7,7 +7,6 @@ radius = 19.0
 height = 62.0
 
 [node name="Player" type="KinematicBody2D" groups=["Net", "Player"]]
-z_as_relative = false
 collision/safe_margin = 0.005
 script = ExtResource( 2 )
 
@@ -36,14 +35,9 @@ shape = SubResource( 1 )
 wait_time = 0.05
 autostart = true
 
-[node name="Reload_timer" type="Timer" parent="."]
-wait_time = 0.15
-one_shot = true
-
 [node name="Hit_timer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.2
 one_shot = true
 
 [connection signal="timeout" from="Network_tick_rate" to="." method="_on_Network_tick_rate_timeout"]
-[connection signal="timeout" from="Reload_timer" to="." method="_on_Reload_timer_timeout"]
 [connection signal="timeout" from="Hit_timer" to="." method="_on_Hit_timer_timeout"]

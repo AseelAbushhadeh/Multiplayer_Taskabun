@@ -36,6 +36,13 @@ func get_direction():
 	return right
 
 var hp = 1 setget set_hp,get_hp
+
+var health = 10 setget set_health,get_health
+func set_health(val):
+	health=val
+func get_health():
+	return health	
+	
 var mychar="" setget set_mychar,get_mychar
 var velocity = Vector2(0, 0)
 var can_shoot = true
@@ -48,7 +55,7 @@ var username setget username_set,username_get
 var username_text_instance = null
 
 puppet var puppet_myOval="" setget puppet_myOval_set
-puppet var puppet_hp = 100 setget puppet_hp_set
+puppet var puppet_hp = 1 setget puppet_hp_set
 puppet var puppet_char = "" setget puppet_char_set
 puppet var puppet_position = Vector2(0, 0) setget puppet_position_set
 puppet var puppet_velocity = Vector2()
@@ -61,9 +68,9 @@ onready var sprite = $Sprite
 onready var reload_timer = $Reload_timer
 #onready var shoot_point = $Shoot_point
 onready var hit_timer = $Hit_timer
-
+var active=false
 func _ready():
-	
+	set_process(false)
 	get_tree().connect("network_peer_connected", self, "_network_peer_connected")
 	
 	username_text_instance = Global.instance_node_at_location(username_text, Persistent_nodes, global_position)
@@ -71,27 +78,71 @@ func _ready():
 	username_text_instance.player_following = self
 	
 	
-	#at start we are unable to shoot(in the loppy)
-	update_shoot_mode(false)
 	
-	#adding our self to the alive player array at global
+
 	Global.alive_players.append(self)
 	
-	#wait tell the idle frame,because even if we are ready network might be not raedy
-	#so we have to wait for it to use the multiplayer(network) stuff
+	
 	yield(get_tree(), "idle_frame")
 	if get_tree().has_network_peer():
 		if is_network_master():
 			Global.player_master = self
 
-func _process(delta: float) -> void:
-	if username_text_instance != null:
-		#if the username_text node exists we need to name it as a node a unique name for each player
-		username_text_instance.name = "username" + name
+onready var Sheeld=preload("res://Player/Player_sheeld.tscn")
+var sheeld
+
+sync func destroy_sheeld():
+	for x in get_children():
+		if x.is_in_group("sheeld"):
+			x.queue_free()
 	
+	
+func start_move(ac,val):
+	if val==false:
+		set_process(false)
+		if get_tree().is_network_server():
+			rpc("destroy_sheeld")	
+	if val:	
+		active=ac
+		var sheeld=Sheeld.instance()
+		sheeld.name="sheeld"
+		sheeld= Global.instance_node_at_location(Sheeld, self, global_position)
+		sheeld.player_following = self
+		sheeld.set_texture(ac)	
+		set_process(val)
+		if ac:
+			sheeld.connect("area_entered",self,"area_entered")
+			
+func area_entered():
+	if get_tree().is_network_server():
+		rpc("hit_by_damager")
+	
+
+
+sync func hit_by_damager():
+	if active:
+		health -= 1
+		$Sprite.set("modulate",Color(5,5,5,1))
+		hit_timer.start()
+		
+signal player_died	
+
+func _process(delta: float) -> void:
+	
+	if health<1 :
+		health=10
+		active=false	
+		set_process(false)
+		emit_signal("player_died")
+		
+		
 	if get_tree().has_network_peer():
 		# and visible ,because if we are not visible means we're dead so we should not be able to shoot
-		if is_network_master() and visible:
+		if is_network_master():
+			if Input.is_action_pressed("right"):
+				set_direction(true)
+			elif Input.is_action_pressed("left"):
+				set_direction(false)
 			var x_input = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
 			var y_input = int(Input.is_action_pressed("down")) - int(Input.is_action_pressed("up"))
 			
@@ -99,21 +150,14 @@ func _process(delta: float) -> void:
 			
 			move_and_slide(velocity * speed)
 			
-			#look_at(get_global_mouse_position())
+			
 			
 		else:
-			#we need to predict the player next position pased on the last known speed ,untill we recieve a packet to update position
 			if not tween.is_active():
 				move_and_slide(puppet_velocity * speed)
 				
 	
-	if hp <= 0:
-		if username_text_instance != null:
-			username_text_instance.visible = false
-		
-		if get_tree().has_network_peer():
-			if get_tree().is_network_server():
-				rpc("destroy")
+	
 				
 	
 		
@@ -152,7 +196,6 @@ func puppet_position_set(new_value) -> void:
 
 func set_hp(new_value):
 	hp = new_value
-	#after changeing our hp value we need to update it on all clients as well
 	if get_tree().has_network_peer():
 		#this means that we are the active player and we need to tell all the other players
 		if is_network_master():
@@ -218,8 +261,6 @@ func _network_peer_connected(id) -> void:
 	rset_id(id, "puppet_username", username)
 	rset_id(id, "puppet_char", mychar)
 	rset_id(id, "puppet_myOval", myOval)
-	#rset_id(id, "puppet_sprite_direction", right)
-
 
 
 func _on_Network_tick_rate_timeout():
@@ -235,87 +276,27 @@ func get_position():
 	return global_position			
 
 sync func update_position(pos):
-
 	global_position = pos
 	puppet_position = pos
 	
 
 
-
-	
-func update_shoot_mode(shoot_mode):
-	if not shoot_mode:
-		sprite.set_region_rect(Rect2(0, 1500, 256, 250))
-	else:
-		sprite.set_region_rect(Rect2(512, 1500, 256, 250))
-	
-	can_shoot = shoot_mode
-
-func _on_Reload_timer_timeout():
-	is_reloading = false
-
 func _on_Hit_timer_timeout():
-	#this will set our modulate color back to normal
-	modulate = Color(1, 1, 1, 1)
-
-#this checks if a bullet has enterd our hit box
-func _on_Hitbox_area_entered(area):
-	
-	if get_tree().is_network_server():
-		if area.is_in_group("Player_damager") and area.get_parent().player_owner != int(name):
-			#we wanna get the damage amount
-			rpc("hit_by_damager", area.get_parent().damage)
-			#we wanna tell the bullet to destroy it self
-			area.get_parent().rpc("destroy")
-
-#sync means excute on both this player and every other one
-sync func hit_by_damager(damage):
-	#recue the our health by the damage amount
-	hp -= damage
-	#making our charcter flash white
-	modulate = Color(5, 5, 5, 1)
-	#this will wait .1 second and then our modulate color will go back normal
-	hit_timer.start()
+	$Sprite.set("modulate",Color(1,1,1,1))
 
 
-sync func enable() -> void:
-	hp = 100
-	can_shoot = false
-	update_shoot_mode(false)
-	username_text_instance.visible = true
-	visible = true
-	$CollisionShape2D.disabled = false
-	
-	
-	if get_tree().has_network_peer():
-		if is_network_master():
-			Global.player_master = self
-	
-	if not Global.alive_players.has(self):
-		Global.alive_players.append(self)
+
+
 
 sync func destroy() -> void:
 	username_text_instance.visible = false
 	visible = false
-	#why we chose to just 'hide' the player insted of actually destroy it or queue it free
-	#cause the clients will try to  reinstance the player, instead we can just hide it
 	$CollisionShape2D.disabled = true
-	
-	#we need to remove our self from the alive player array when we are dead
 	Global.alive_players.erase(self)
 	
 	if get_tree().has_network_peer():
-	#means if our player is destroied ,we wanna destroy its reference in the global script	
 		if is_network_master():
 			Global.player_master = null
 
-"""
-#this function will excute when our current node(player) gets destroied
-func _exit_tree() -> void:
-	#we need to remove our self from the alive player array when we leave
-	Global.alive_players.erase(self)
-	if get_tree().has_network_peer():
-		if is_network_master():
-			Global.player_master = null"""
 
 
