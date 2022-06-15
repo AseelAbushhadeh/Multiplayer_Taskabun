@@ -117,12 +117,13 @@ func area_entered():
 	if get_tree().is_network_server():
 		rpc("hit_by_damager")
 	
-
+signal player_damaged
 
 sync func hit_by_damager():
 	if active:
 		health -= 1
 		$Sprite.set("modulate",Color(5,5,5,1))
+		emit_signal("player_damaged")
 		hit_timer.start()
 		
 signal player_died	

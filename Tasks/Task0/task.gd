@@ -12,17 +12,18 @@ func _ready():
 	$CanvasLayer/Label.hide()
 	add_players()
 	get_parent().get_parent().get_node("YSort").free()
-	#$Camera2D.make_current()
+	$CanvasLayer/greyHearts.rect_size.x=105*health
+	$CanvasLayer/redHearts.rect_size.x=105*health
 	
 func set_values(p,ac,v):
 	player=p
 	active=ac	
 	if v=="easy":
 		duration=10
-		health=10
+		health=7
 	elif v=="medium":
 		duration=15	
-		health=7
+		health=5
 	else:
 		duration=20	
 		health=3
@@ -41,13 +42,18 @@ func add_players():
 				x.start_move(true,true)
 			else:
 				x.start_move(false,true)
-			x.connect("player_died",self,"_on_Players_end_player")		
+			x.connect("player_died",self,"_on_Players_end_player")	
+			x.connect("player_damaged",self,"_on_player_damaged")	
 		elif x.is_in_group("Net"):
 			current_location+=1		
 	
 				
 func _on_Players_end_player():
 	rpc("Player_died")			
+
+func _on_player_damaged():
+	health-=1
+	$CanvasLayer/redHearts.rect_size.x=105*health
 
 
 sync func Player_died():

@@ -76,9 +76,7 @@ func List_cleanup(x):
 	else:
 		$CanvasLayer/dice.hide()
 				
-			
-signal started_task
-signal finished_task		
+					
 func _on_dice_player_moved(x):
 
 	yield(get_tree().create_timer(1),"timeout")
